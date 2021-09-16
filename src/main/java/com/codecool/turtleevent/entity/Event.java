@@ -15,8 +15,7 @@ public class Event {
     private Date fromDate;
     private Date toDate;
     @OneToMany
-    private List<User> participants;
-    private Map<User, Role> roles;
+    private List<UserRole> participants;
     private List<StuffToBring> stuffsToBring;
     private List<StuffToDo> stuffsToDo;
 
@@ -29,3 +28,11 @@ public class Event {
         return id;
     }
 }
+select *
+from events
+left join events_users_roles
+    on event.id = events_users_roles.event_id
+left join users
+    on events_users_roles.user_id = users.id
+left join roles
+    on events_users_roles.role_id = roles.id

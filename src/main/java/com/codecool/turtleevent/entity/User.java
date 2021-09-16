@@ -17,7 +17,8 @@ public class User {
     private String password;
     private List<User> friends;
     @OneToMany
-    private Map<Event,Role> events;
+    private List<Event> events;
+//    private Map<Event,Role> events;
     private Date registered;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
