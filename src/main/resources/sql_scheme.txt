@@ -1,0 +1,124 @@
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
+
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO public;
+
+
+DROP TABLE IF EXISTS events;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS participants;
+DROP TABLE IF EXISTS messages;
+DROP TABLE IF EXISTS friends;
+DROP TABLE IF EXISTS to_bring;
+DROP TABLE IF EXISTS to_do;
+DROP TABLE IF EXISTS bringers;
+DROP TABLE IF EXISTS doers;
+
+
+CREATE TABLE events
+(
+    id integer PRIMARY KEY,
+    title varchar not null,
+    description varchar not null,
+    location varchar not null,
+    from_date date not null,
+    to_date date not null
+);
+
+CREATE TABLE users
+(
+    id integer PRIMARY KEY,
+    user_name varchar not null,
+    first_name varchar not null,
+    last_name varchar not null,
+    email varchar not null,
+    password varchar not null,
+    registered date not null
+);
+
+CREATE TABLE participants
+(
+    user_id int not null,
+    event_id int not null,
+    role varchar not null
+);
+
+CREATE TABLE friends
+(
+    user_id int not null,
+    friend_id int not null
+);
+
+CREATE TABLE messages
+(
+    id integer PRIMARY KEY,
+    user_id int not null,
+    event_id int not null,
+    text varchar not null
+);
+
+CREATE TABLE to_bring
+(
+    id integer PRIMARY KEY,
+    event_id int not null,
+    total_amount int not null,
+    sub_amount int not null
+);
+
+CREATE TABLE to_do
+(
+    id integer PRIMARY KEY,
+    event_id int not null
+);
+
+CREATE TABLE bringers
+(
+    id integer PRIMARY KEY,
+    to_bring_id int not null,
+    event_id int not null,
+    user_id int not null,
+    price int not null,
+    amount int not null,
+    attachment varchar
+);
+
+CREATE TABLE doers
+(
+    id integer PRIMARY KEY,
+    to_do_id int not null,
+    event_id int not null,
+    user_id int not null,
+    attachment varchar
+);
+
+
+INSERT INTO events (id, title, description, location, from_date, to_date) VALUES
+(1001, 'Poker est', 'Korda Gyurit elhívnánk kommentálni az egyik partynkat', 'Miskolc', '2021-12-18', '2021-12-18'),
+(1002, 'Pali meglepi buli', 'Palit meglepnénk amikor nem számít rá!', 'Miskolc', '2021-11-10', '2021-11-11'),
+(1003, 'Szalonnasütés', 'Sziasztok, összejönnénk pár haverral pörgetni egyet, kinek van kedve?', 'Sajókeresztúr', '2021-10-25', '2021-10-25');
+
+INSERT INTO users (id, user_name, first_name, last_name, email, password, registered) VALUES
+(901, 'quador', 'David', 'Fazekas', 'fazekasdavid@posta.hu', 'almafa123', CURRENT_DATE),
+(902, 'haku9104', 'Balazs', 'Horvath', 'akarmi@akarmi.hu', 'jelszoXX1122', '2019-10-25'),
+(903, 's1p9', 'Martin', 'Sipos', 'martinka@freemail.hu', '123456PW', '2013-02-10');
+
+INSERT INTO participants (user_id, event_id, role) VALUES
+(901, 1003, 'Viewer'),
+(902, 1003, 'Viewer'),
+(903, 1003, 'Organizer'),
+(901, 1001, 'Admin'),
+(902, 1001, 'Viewer'),
+(901, 1002, 'Organizer'),
+(903, 1002, 'Viewer');
+
+
+ALTER TABLE participants
+    ADD CONSTRAINT event_id_fk
+        FOREIGN KEY (event_id)
+            REFERENCES events(id);
+
+ALTER TABLE participants
+    ADD CONSTRAINT user_id_fk
+        FOREIGN KEY (user_id)
+            REFERENCES users(id);
