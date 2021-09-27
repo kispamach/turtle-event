@@ -15,6 +15,7 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+    @OneToMany
     private List<User> friends;
     @OneToMany
     private List<Event> events;
@@ -27,7 +28,7 @@ public class User {
             joinColumns = {@JoinColumn(name="user_id")},
             inverseJoinColumns = {@JoinColumn(name="roles_id")}
     )
-    private Set<Role> roles = new HashSet<Role>();
+    private Set<Participant> roles = new HashSet<Participant>();
 
 
     public void setId(Long id) {
@@ -92,14 +93,6 @@ public class User {
 
     public void setEvents(List<Event> events) {
         this.events = events;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     public Date getRegistered() {
