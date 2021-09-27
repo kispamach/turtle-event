@@ -1,19 +1,21 @@
 package com.codecool.turtleevent.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name="messages")
 public class Message {
     @Id
     @GeneratedValue
     private Long id;
+    @ManyToOne
     private User author;
+    @ManyToOne
     private Event event;
     private String text;
     private Date posted;
+
 
     public void setId(Long id) {
         this.id = id;

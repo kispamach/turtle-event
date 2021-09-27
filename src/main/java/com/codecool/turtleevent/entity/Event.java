@@ -3,9 +3,9 @@ package com.codecool.turtleevent.entity;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Entity
+@Table(name="events")
 public class Event {
     @Id
     @GeneratedValue
@@ -15,10 +15,76 @@ public class Event {
     private Date fromDate;
     private Date toDate;
     @OneToMany
-    private List<UserRole> participants;
-    private List<StuffToBring> stuffsToBring;
-    private List<StuffToDo> stuffsToDo;
+    private List<User> participants;
+    @OneToMany
+    private List<ToBring> stuffsToBring;
+    @OneToMany
+    private List<ToDo> stuffsToDo;
+    private Date createTime;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Date getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
+    }
+
+    public List<User> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<User> participants) {
+        this.participants = participants;
+    }
+
+    public List<ToBring> getStuffsToBring() {
+        return stuffsToBring;
+    }
+
+    public void setStuffsToBring(List<ToBring> stuffsToBring) {
+        this.stuffsToBring = stuffsToBring;
+    }
+
+    public List<ToDo> getStuffsToDo() {
+        return stuffsToDo;
+    }
+
+    public void setStuffsToDo(List<ToDo> stuffsToDo) {
+        this.stuffsToDo = stuffsToDo;
+    }
+
+    public Date getCreate_time() {
+        return createTime;
+    }
+
+    public void setCreate_time(Date createTime) {
+        this.createTime = createTime;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -28,11 +94,3 @@ public class Event {
         return id;
     }
 }
-select *
-from events
-left join events_users_roles
-    on event.id = events_users_roles.event_id
-left join users
-    on events_users_roles.user_id = users.id
-left join roles
-    on events_users_roles.role_id = roles.id
