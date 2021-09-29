@@ -1,4 +1,4 @@
-package com.codecool.turtleevent.entity;
+package com.codecool.turtleevent.model;
 
 import javax.persistence.*;
 import java.util.Date;

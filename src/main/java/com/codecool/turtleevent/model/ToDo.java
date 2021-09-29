@@ -1,27 +1,18 @@
-package com.codecool.turtleevent.entity;
+package com.codecool.turtleevent.model;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
-@Table(name="friends")
-public class Friend {
-
+@Table(name="to_do")
+public class ToDo {
     @Id
     @GeneratedValue
     private Long id;
-    @ManyToMany
-    private List<User> friends;
+    @ManyToOne
+    private Event event;
+    private String title;
     private Date createTime;
-
-    public List<User> getFriends() {
-        return friends;
-    }
-
-    public void setFriends(List<User> friends) {
-        this.friends = friends;
-    }
 
     public Date getCreateTime() {
         return createTime;
@@ -31,11 +22,26 @@ public class Friend {
         this.createTime = createTime;
     }
 
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
 
-    @Id
     public Long getId() {
         return id;
     }

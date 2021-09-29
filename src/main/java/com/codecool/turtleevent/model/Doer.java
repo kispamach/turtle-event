@@ -1,23 +1,23 @@
-package com.codecool.turtleevent.entity;
+package com.codecool.turtleevent.model;
 
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
-@Table(name="bringers")
-public class Bringer {
+@Table(name="Doers")
+public class Doer {
 
     @Id
     private Long id;
     @ManyToOne
-    private ToBring toBrings;
+    private ToBring toBring;
     @ManyToOne
     private Event event;
     @ManyToOne
     private User user;
-    private double price;
-    private int amount;
     private String attachment;
     private Date createTime;
 
@@ -38,12 +38,12 @@ public class Bringer {
         return id;
     }
 
-    public ToBring getToBrings() {
-        return toBrings;
+    public ToBring getToBring() {
+        return toBring;
     }
 
-    public void setToBrings(ToBring toBrings) {
-        this.toBrings = toBrings;
+    public void setToBring(ToBring toBring) {
+        this.toBring = toBring;
     }
 
     public Event getEvent() {
@@ -60,22 +60,6 @@ public class Bringer {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
     }
 
     public String getAttachment() {

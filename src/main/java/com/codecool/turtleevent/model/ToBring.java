@@ -1,8 +1,7 @@
-package com.codecool.turtleevent.entity;
+package com.codecool.turtleevent.model;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Map;
 
 @Entity
 @Table(name="to_bring")
