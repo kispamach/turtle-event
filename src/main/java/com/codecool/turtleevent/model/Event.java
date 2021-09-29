@@ -1,12 +1,14 @@
 package com.codecool.turtleevent.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name="events")
 public class Event {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -15,12 +17,14 @@ public class Event {
     private Date fromDate;
     private Date toDate;
     @OneToMany
-    private List<User> participants;
+    private List<UserRole> userRoles;
     @OneToMany
     private List<ToBring> stuffsToBring;
     @OneToMany
     private List<ToDo> stuffsToDo;
-    private Date createTime;
+    private LocalDateTime createTime;
+
+
 
     public String getName() {
         return name;
@@ -54,14 +58,6 @@ public class Event {
         this.toDate = toDate;
     }
 
-    public List<User> getParticipants() {
-        return participants;
-    }
-
-    public void setParticipants(List<User> participants) {
-        this.participants = participants;
-    }
-
     public List<ToBring> getStuffsToBring() {
         return stuffsToBring;
     }
@@ -78,11 +74,11 @@ public class Event {
         this.stuffsToDo = stuffsToDo;
     }
 
-    public Date getCreate_time() {
+    public LocalDateTime getCreate_time() {
         return createTime;
     }
 
-    public void setCreate_time(Date createTime) {
+    public void setCreate_time(LocalDateTime createTime) {
         this.createTime = createTime;
     }
 

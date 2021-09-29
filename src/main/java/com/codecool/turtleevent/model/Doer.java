@@ -1,31 +1,30 @@
 package com.codecool.turtleevent.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-@Table(name="Doers")
+@Table(name="doers")
 public class Doer {
 
     @Id
+    @GeneratedValue
     private Long id;
     @ManyToOne
     private ToBring toBring;
     @ManyToOne
-    private Event event;
-    @ManyToOne
     private User user;
     private String attachment;
-    private Date createTime;
+    private LocalDateTime createTime;
 
-    public Date getCreate_time() {
+    public LocalDateTime getCreateTime() {
         return createTime;
     }
 
-    public void setCreate_time(Date createTime) {
+    public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
     }
 
@@ -33,7 +32,6 @@ public class Doer {
         this.id = id;
     }
 
-    @Id
     public Long getId() {
         return id;
     }
@@ -44,14 +42,6 @@ public class Doer {
 
     public void setToBring(ToBring toBring) {
         this.toBring = toBring;
-    }
-
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
     }
 
     public User getUser() {

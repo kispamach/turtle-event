@@ -2,30 +2,32 @@ package com.codecool.turtleevent.model;
 
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name="bringers")
 public class Bringer {
 
     @Id
-    private Long id;
+    @GeneratedValue
+    private long id;
     @ManyToOne
     private ToBring toBrings;
-    @ManyToOne
-    private Event event;
     @ManyToOne
     private User user;
     private double price;
     private int amount;
     private String attachment;
-    private Date createTime;
+    private LocalDateTime createTime;
 
-    public Date getCreate_time() {
+    public LocalDateTime getCreate_time() {
         return createTime;
     }
 
-    public void setCreate_time(Date createTime) {
+    public void setCreate_time(LocalDateTime createTime) {
         this.createTime = createTime;
     }
 
@@ -33,7 +35,6 @@ public class Bringer {
         this.id = id;
     }
 
-    @Id
     public Long getId() {
         return id;
     }
@@ -44,14 +45,6 @@ public class Bringer {
 
     public void setToBrings(ToBring toBrings) {
         this.toBrings = toBrings;
-    }
-
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
     }
 
     public User getUser() {

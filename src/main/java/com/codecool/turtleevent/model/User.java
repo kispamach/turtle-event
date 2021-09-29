@@ -15,12 +15,24 @@ public class User {
     private String lastName;
     private String email;
     private String password;
-    @OneToMany
+    @ManyToMany
+    @JoinTable(name="friends",
+            joinColumns=@JoinColumn(name="personId"),
+            inverseJoinColumns=@JoinColumn(name="friendId")
+    )
     private List<User> friends;
+
+    @ManyToMany
+    @JoinTable(name="friends",
+            joinColumns=@JoinColumn(name="friendId"),
+            inverseJoinColumns=@JoinColumn(name="personId")
+    )
+    private List<User> friendOf;
     @OneToMany
     private List<Event> events;
 //    private Map<Event,Role> events;
     private Date registered;
+
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
@@ -28,7 +40,7 @@ public class User {
             joinColumns = {@JoinColumn(name="user_id")},
             inverseJoinColumns = {@JoinColumn(name="roles_id")}
     )
-    private Set<Participant> roles = new HashSet<Participant>();
+    private Set<UserRole> roles = new HashSet<UserRole>();
 
 
     public void setId(Long id) {
