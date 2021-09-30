@@ -12,14 +12,18 @@ public class ToDo {
     @ManyToOne
     private Event event;
     private String title;
+    @Column(name = "create_time", nullable = false)
     private Date createTime;
 
-    public Date getCreateTime() {
-        return createTime;
+    public ToDo() {
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Event getEvent() {
@@ -38,11 +42,11 @@ public class ToDo {
         this.title = title;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public Long getId() {
-        return id;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

@@ -1,6 +1,7 @@
 package com.codecool.turtleevent.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -14,15 +15,18 @@ public class Message {
     @ManyToOne
     private Event event;
     private String text;
-    private Date posted;
+    @Column(nullable = false)
+    private LocalDateTime posted;
 
-
-    public void setId(Long id) {
-        this.id = id;
+    public Message() {
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public User getAuthor() {
@@ -49,11 +53,11 @@ public class Message {
         this.text = text;
     }
 
-    public Date getPosted() {
+    public LocalDateTime getPosted() {
         return posted;
     }
 
-    public void setPosted(Date posted) {
+    public void setPosted(LocalDateTime posted) {
         this.posted = posted;
     }
 }

@@ -1,10 +1,7 @@
 package com.codecool.turtleevent.model;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Table(name="doers")
@@ -13,35 +10,32 @@ public class Doer {
     @Id
     @GeneratedValue
     private Long id;
+    @JoinColumn(name = "to_do")
     @ManyToOne
-    private ToBring toBring;
+    private ToDo toDo;
     @ManyToOne
     private User user;
     private String attachment;
+    @Column(name = "create_time", nullable = false)
     private LocalDateTime createTime;
 
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public Doer() {
     }
 
     public Long getId() {
         return id;
     }
 
-    public ToBring getToBring() {
-        return toBring;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setToBring(ToBring toBring) {
-        this.toBring = toBring;
+    public ToDo getToDo() {
+        return toDo;
+    }
+
+    public void setToDo(ToDo toDo) {
+        this.toDo = toDo;
     }
 
     public User getUser() {
@@ -58,5 +52,13 @@ public class Doer {
 
     public void setAttachment(String attachment) {
         this.attachment = attachment;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
     }
 }

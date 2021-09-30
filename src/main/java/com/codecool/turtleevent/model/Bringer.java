@@ -2,10 +2,7 @@ package com.codecool.turtleevent.model;
 
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.UUID;
 
 @Entity
 @Table(name="bringers")
@@ -14,37 +11,34 @@ public class Bringer {
     @Id
     @GeneratedValue
     private long id;
+    @JoinColumn(name = "to_bring")
     @ManyToOne
-    private ToBring toBrings;
+    private ToBring toBring;
     @ManyToOne
     private User user;
     private double price;
     private int amount;
     private String attachment;
+    @Column(name = "create_time", nullable = false)
     private LocalDateTime createTime;
 
-    public LocalDateTime getCreate_time() {
-        return createTime;
+    public Bringer() {
     }
 
-    public void setCreate_time(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public ToBring getToBrings() {
-        return toBrings;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void setToBrings(ToBring toBrings) {
-        this.toBrings = toBrings;
+    public ToBring getToBring() {
+        return toBring;
+    }
+
+    public void setToBring(ToBring toBring) {
+        this.toBring = toBring;
     }
 
     public User getUser() {
@@ -77,5 +71,13 @@ public class Bringer {
 
     public void setAttachment(String attachment) {
         this.attachment = attachment;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
     }
 }

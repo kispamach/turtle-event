@@ -13,9 +13,31 @@ public class ToBring {
     private Event event;
     private String title;
     private String comment;
+    @Column(name = "sub_amount")
     private int subAmount;
+    @Column(name = "total_amount")
     private int totalAmount;
+    @Column(name = "create_time", nullable = false)
     private Date createTime;
+
+    public ToBring() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
 
     public String getTitle() {
         return title;
@@ -25,20 +47,12 @@ public class ToBring {
         this.title = title;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public String getComment() {
+        return comment;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public int getSubAmount() {
@@ -57,27 +71,11 @@ public class ToBring {
         this.totalAmount = totalAmount;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return title;
-    }
-
-    public void setName(String title) {
-        this.title = title;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

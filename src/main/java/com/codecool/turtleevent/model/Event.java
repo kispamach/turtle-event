@@ -2,7 +2,6 @@ package com.codecool.turtleevent.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -14,17 +13,32 @@ public class Event {
     private Long id;
     private String name;
     private String description;
-    private Date fromDate;
-    private Date toDate;
+    @Column(name="from_date")
+    private LocalDateTime fromDate;
+    @Column(name="to_date")
+    private LocalDateTime toDate;
+    @Column(name="user_roles")
     @OneToMany
-    private List<UserRole> userRoles;
+    private List<UserEventRole> userRoles;
+    @Column(name="to_bring")
     @OneToMany
-    private List<ToBring> stuffsToBring;
+    private List<ToBring> toBring;
+    @Column(name="to_do")
     @OneToMany
-    private List<ToDo> stuffsToDo;
+    private List<ToDo> toDo;
+    @Column(name="create_time", nullable = false)
     private LocalDateTime createTime;
 
+    public Event() {
+    }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -42,51 +56,51 @@ public class Event {
         this.description = description;
     }
 
-    public Date getFromDate() {
+    public LocalDateTime getFromDate() {
         return fromDate;
     }
 
-    public void setFromDate(Date fromDate) {
+    public void setFromDate(LocalDateTime fromDate) {
         this.fromDate = fromDate;
     }
 
-    public Date getToDate() {
+    public LocalDateTime getToDate() {
         return toDate;
     }
 
-    public void setToDate(Date toDate) {
+    public void setToDate(LocalDateTime toDate) {
         this.toDate = toDate;
     }
 
-    public List<ToBring> getStuffsToBring() {
-        return stuffsToBring;
+    public List<UserEventRole> getUserRoles() {
+        return userRoles;
     }
 
-    public void setStuffsToBring(List<ToBring> stuffsToBring) {
-        this.stuffsToBring = stuffsToBring;
+    public void setUserRoles(List<UserEventRole> userRoles) {
+        this.userRoles = userRoles;
     }
 
-    public List<ToDo> getStuffsToDo() {
-        return stuffsToDo;
+    public List<ToBring> getToBring() {
+        return toBring;
     }
 
-    public void setStuffsToDo(List<ToDo> stuffsToDo) {
-        this.stuffsToDo = stuffsToDo;
+    public void setToBring(List<ToBring> toBring) {
+        this.toBring = toBring;
     }
 
-    public LocalDateTime getCreate_time() {
+    public List<ToDo> getToDo() {
+        return toDo;
+    }
+
+    public void setToDo(List<ToDo> toDo) {
+        this.toDo = toDo;
+    }
+
+    public LocalDateTime getCreateTime() {
         return createTime;
     }
 
-    public void setCreate_time(LocalDateTime createTime) {
+    public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
     }
 }
