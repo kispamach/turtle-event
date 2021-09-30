@@ -1,6 +1,9 @@
 package com.codecool.turtleevent.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -9,10 +12,12 @@ import java.time.LocalDateTime;
 public class Bringer {
 
     @Id
-    @GeneratedValue
-    private long id;
-    @JoinColumn(name = "to_bring")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @ManyToOne
+    @JoinColumn(name = "to_bring_id", referencedColumnName = "id")
+    @JsonBackReference(value="bringers-tobring")
     private ToBring toBring;
     @ManyToOne
     private User user;

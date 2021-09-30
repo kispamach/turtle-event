@@ -1,5 +1,8 @@
 package com.codecool.turtleevent.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -8,14 +11,17 @@ import java.time.LocalDateTime;
 public class Doer {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JoinColumn(name = "to_do")
+
     @ManyToOne
+    @JoinColumn(name = "to_do_id", referencedColumnName = "id")
+    @JsonBackReference(value="doers-todo")
     private ToDo toDo;
     @ManyToOne
     private User user;
     private String attachment;
+
     @Column(name = "create_time", nullable = false)
     private LocalDateTime createTime;
 

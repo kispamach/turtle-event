@@ -1,15 +1,20 @@
 package com.codecool.turtleevent.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="events")
 public class Event {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String description;
@@ -17,15 +22,23 @@ public class Event {
     private LocalDateTime fromDate;
     @Column(name="to_date")
     private LocalDateTime toDate;
-    @Column(name="user_roles")
-    @OneToMany
-    private List<UserEventRole> userRoles;
-    @Column(name="to_bring")
-    @OneToMany
-    private List<ToBring> toBring;
-    @Column(name="to_do")
-    @OneToMany
-    private List<ToDo> toDo;
+
+    @OneToMany(mappedBy = "event", cascade = {CascadeType.ALL})
+    @JsonManagedReference(value="event-userroles")
+    private Set<UserEventRole> userRoles;
+
+    @OneToMany(mappedBy = "event", cascade = {CascadeType.ALL})
+    @JsonManagedReference(value="event-tobring")
+    private Set<ToBring> toBring;
+
+    @OneToMany(mappedBy = "event", cascade = {CascadeType.ALL})
+    @JsonManagedReference(value="event-todo")
+    private Set<ToDo> toDo;
+
+    @OneToMany(mappedBy = "event", cascade = {CascadeType.ALL})
+    @JsonManagedReference(value="event-messages")
+    private Set<Message> messages;
+
     @Column(name="create_time", nullable = false)
     private LocalDateTime createTime;
 
@@ -72,28 +85,36 @@ public class Event {
         this.toDate = toDate;
     }
 
-    public List<UserEventRole> getUserRoles() {
+    public Set<UserEventRole> getUserRoles() {
         return userRoles;
     }
 
-    public void setUserRoles(List<UserEventRole> userRoles) {
+    public void setUserRoles(Set<UserEventRole> userRoles) {
         this.userRoles = userRoles;
     }
 
-    public List<ToBring> getToBring() {
+    public Set<ToBring> getToBring() {
         return toBring;
     }
 
-    public void setToBring(List<ToBring> toBring) {
+    public void setToBring(Set<ToBring> toBring) {
         this.toBring = toBring;
     }
 
-    public List<ToDo> getToDo() {
+    public Set<ToDo> getToDo() {
         return toDo;
     }
 
-    public void setToDo(List<ToDo> toDo) {
+    public void setToDo(Set<ToDo> toDo) {
         this.toDo = toDo;
+    }
+
+    public Set<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(Set<Message> messages) {
+        this.messages = messages;
     }
 
     public LocalDateTime getCreateTime() {

@@ -1,17 +1,32 @@
 package com.codecool.turtleevent.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name="to_do")
+@Table(name = "to_do")
 public class ToDo {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
+    @JoinColumn(name = "to_do_id", referencedColumnName = "id")
+    @JsonBackReference(value="event-todo")
     private Event event;
+
     private String title;
+
+    @OneToMany(mappedBy = "toDo", cascade = {CascadeType.ALL})
+    @JsonManagedReference(value="doers-todo")
+    private Set<Doer> doers = new HashSet<>();
+
     @Column(name = "create_time", nullable = false)
     private Date createTime;
 
@@ -40,6 +55,14 @@ public class ToDo {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Set<Doer> getDoers() {
+        return doers;
+    }
+
+    public void setDoers(Set<Doer> doers) {
+        this.doers = doers;
     }
 
     public Date getCreateTime() {

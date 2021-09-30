@@ -1,22 +1,33 @@
 package com.codecool.turtleevent.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name="to_bring")
 public class ToBring {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
+    @JoinColumn(name = "to_bring_id", referencedColumnName = "id")
+    @JsonBackReference(value="event-tobring")
     private Event event;
+
     private String title;
     private String comment;
     @Column(name = "sub_amount")
     private int subAmount;
     @Column(name = "total_amount")
     private int totalAmount;
+    @OneToMany(mappedBy = "toBring", cascade = {CascadeType.ALL})
+    @JsonManagedReference(value="bringers-tobring")
+    private Set<Bringer> bringers;
     @Column(name = "create_time", nullable = false)
     private Date createTime;
 
@@ -69,6 +80,14 @@ public class ToBring {
 
     public void setTotalAmount(int totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public Set<Bringer> getBringers() {
+        return bringers;
+    }
+
+    public void setBringers(Set<Bringer> bringers) {
+        this.bringers = bringers;
     }
 
     public Date getCreateTime() {

@@ -1,5 +1,8 @@
 package com.codecool.turtleevent.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -8,17 +11,22 @@ import java.time.LocalDateTime;
 @Table(name="user_event_role")
 public class UserEventRole {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Enumerated(EnumType.STRING)
     private RoleType role;
 
     @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonBackReference(value="user-eventroles")
     private User user;
 
     @ManyToOne
+    @JoinColumn(name = "event_id", referencedColumnName = "id")
+    @JsonBackReference(value="event-userroles")
     private Event event;
+
     @Column(name="create_time", nullable = false)
     private LocalDateTime createTime;
 
