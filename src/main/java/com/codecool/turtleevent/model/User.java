@@ -1,7 +1,6 @@
 package com.codecool.turtleevent.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,20 +9,39 @@ import java.util.Set;
 
 @Entity
 @Table(name="users")
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class User {
 
+
+
+    public static class UserView extends AllUsersView {
+
+    }
+
+
+    public static class AllUsersView{
+
+    }
+
+    @JsonView(AllUsersView.class)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @JsonView(AllUsersView.class)
     @Column(name="user_name")
     private String userName;
+    @JsonView(AllUsersView.class)
     @Column(name="first_name")
     private String firstName;
+    @JsonView(AllUsersView.class)
     @Column(name="last_name")
     private String lastName;
+    @JsonView(AllUsersView.class)
     private String email;
+    @JsonView(AllUsersView.class)
     private String password;
 
+    @JsonView(UserView.class)
     @ManyToMany
     @JoinTable(name="friends",
             joinColumns=@JoinColumn(name="user_id"),
@@ -31,6 +49,7 @@ public class User {
     )
     private List<User> friends;
 
+    @JsonView(UserView.class)
     @ManyToMany
     @JoinTable(name="friends",
             joinColumns=@JoinColumn(name="friend_id"),
@@ -38,14 +57,17 @@ public class User {
     )
     private List<User> friendOf;
 
+    @JsonView(UserView.class)
     @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
     @JsonManagedReference(value="user-eventroles")
     private Set<UserEventRole> eventRoles;
 
+    @JsonView(UserView.class)
     @OneToMany(mappedBy = "author", cascade = {CascadeType.ALL})
     @JsonManagedReference(value="user-messages")
     private Set<Message> messages;
 
+    @JsonView(AllUsersView.class)
     @Column(nullable = false)
     private LocalDateTime registered;
 
