@@ -58,7 +58,7 @@ public class UserService {
         user.setFriends(userFriends);
 
         List<User> friendFriends = friend.getFriends();
-        friendFriends.add(friend);
+        friendFriends.add(user);
         friend.setFriends(friendFriends);
     }
 
