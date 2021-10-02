@@ -12,15 +12,10 @@ import java.util.Set;
 @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class User {
 
-
-
     public static class UserView extends AllUsersView {
-
     }
 
-
     public static class AllUsersView{
-
     }
 
     @JsonView(AllUsersView.class)
