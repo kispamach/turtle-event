@@ -1,16 +1,14 @@
 package com.codecool.turtleevent.controller;
 
-import com.codecool.turtleevent.model.Event;
 import com.codecool.turtleevent.model.User;
+import com.codecool.turtleevent.model.dto.RestResponseDTO;
 import com.codecool.turtleevent.service.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/user/")
@@ -23,18 +21,16 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("{id}")
+    @GetMapping("profile")
     @JsonView(User.UserView.class)
-    public User getUserById(@PathVariable Long id){
-        return userService.findUserById(id);
+    public User getUserById(@RequestBody User user){
+        return userService.findUserById(user.getId());
     }
 
     @PostMapping(value = "registration")
     @JsonView(User.UserView.class)
-    public User registerUser(@RequestBody User newUser){
-        newUser.setRegistered(LocalDateTime.now());
-        userService.saveUser(newUser);
-        return newUser;
+    public RestResponseDTO registerUser(@RequestBody User newUser){
+        return userService.saveUser(newUser);
     }
 
     @GetMapping("all")
@@ -43,20 +39,19 @@ public class UserController {
         return userService.getAllUser();
     }
 
-    @DeleteMapping("{id}")
-    public void deleteUserById(@PathVariable Long id) {
-        User user = userService.findUserById(id);
-        userService.deleteUser(user);
+    @DeleteMapping("delete")
+    public RestResponseDTO deleteUserById(@RequestBody User user) {
+        return userService.deleteUserById(user.getId());
     }
 
-    @PutMapping("update/{id}")
-    public void update(@RequestBody User newUser, @PathVariable Long id){
-        userService.updateUser(newUser, id);
+    @PutMapping("update")
+    public RestResponseDTO update(@RequestBody User newUser){
+        return userService.updateUser(newUser);
     }
 
-    @PutMapping("{id}/add-friend/{my_id}")
-    public void update(@PathVariable Long my_id, @PathVariable Long id){
-        userService.addFriend(id, my_id);
+    @PutMapping("add-friend")
+    public RestResponseDTO addFriend(@RequestBody User user, @RequestBody User friendUser){
+        return userService.addFriend(user, friendUser);
     }
 
 
