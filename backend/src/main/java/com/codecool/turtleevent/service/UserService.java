@@ -1,8 +1,9 @@
 package com.codecool.turtleevent.service;
 
 import com.codecool.turtleevent.model.User;
+import com.codecool.turtleevent.model.dto.IdDTO;
 import com.codecool.turtleevent.model.dto.RestResponseDTO;
-import com.codecool.turtleevent.model.dto.UserIdDTO;
+import com.codecool.turtleevent.model.dto.UserDTO;
 import com.codecool.turtleevent.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,21 +52,21 @@ public class UserService {
     }
 
     @Transactional
-    public RestResponseDTO updateUser(User newUser){
+    public RestResponseDTO updateUser(UserDTO newUser){
         Optional<User> user = userRepository.findById(newUser.getId());
         if(user.isPresent()) {
-            user.get().setUserName(newUser.getUserName());
-            user.get().setFirstName(newUser.getFirstName());
-            user.get().setLastName(newUser.getLastName());
-            user.get().setEmail(newUser.getEmail());
-            user.get().setPassword(newUser.getPassword());
-            return new RestResponseDTO(true, "User up to date!");
+            if(newUser.getUserName() != null) user.get().setUserName(newUser.getUserName());
+            if(newUser.getFirstName() != null) user.get().setFirstName(newUser.getFirstName());
+            if(newUser.getLastName() != null) user.get().setLastName(newUser.getLastName());
+            if(newUser.getEmail() != null) user.get().setEmail(newUser.getEmail());
+            if(newUser.getPassword() != null) user.get().setPassword(newUser.getPassword());
+            return new RestResponseDTO(true, "User is up to date!");
         }
         return new RestResponseDTO(false, "User cannot be updated!");
     }
 
     @Transactional
-    public RestResponseDTO addFriend(UserIdDTO user1, UserIdDTO user2){
+    public RestResponseDTO addFriend(IdDTO user1, IdDTO user2){
         Optional<User> user = userRepository.findById(user1.getId());
         Optional<User> friendUser = userRepository.findById(user2.getId());
 

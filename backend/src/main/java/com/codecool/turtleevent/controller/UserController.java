@@ -1,8 +1,9 @@
 package com.codecool.turtleevent.controller;
 
 import com.codecool.turtleevent.model.User;
+import com.codecool.turtleevent.model.dto.IdDTO;
 import com.codecool.turtleevent.model.dto.RestResponseDTO;
-import com.codecool.turtleevent.model.dto.UserIdDTO;
+import com.codecool.turtleevent.model.dto.UserDTO;
 import com.codecool.turtleevent.service.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class UserController {
 
     @GetMapping("profile")
     @JsonView(User.UserView.class)
-    public User getUserById(@RequestBody UserIdDTO userId){
+    public User getUserById(@RequestBody IdDTO userId){
         return userService.findUserById(userId.getId());
     }
 
@@ -40,17 +41,17 @@ public class UserController {
     }
 
     @DeleteMapping("delete")
-    public RestResponseDTO deleteUserById(@RequestBody UserIdDTO user) {
+    public RestResponseDTO deleteUserById(@RequestBody IdDTO user) {
         return userService.deleteUserById(user.getId());
     }
 
     @PutMapping("update")
-    public RestResponseDTO update(@RequestBody User newUser){
+    public RestResponseDTO update(@RequestBody UserDTO newUser){
         return userService.updateUser(newUser);
     }
 
     @PutMapping("add-friend")
-    public RestResponseDTO addFriend(@RequestBody UserIdDTO user, @RequestBody UserIdDTO friendUser){
+    public RestResponseDTO addFriend(@RequestBody IdDTO user, @RequestBody IdDTO friendUser){
         return userService.addFriend(user, friendUser);
     }
 

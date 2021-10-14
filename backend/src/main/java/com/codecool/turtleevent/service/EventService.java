@@ -1,11 +1,14 @@
 package com.codecool.turtleevent.service;
 
 import com.codecool.turtleevent.model.Event;
-import com.codecool.turtleevent.model.dto.EventIdDTO;
+import com.codecool.turtleevent.model.User;
+import com.codecool.turtleevent.model.dto.IdDTO;
 import com.codecool.turtleevent.model.dto.RestResponseDTO;
+import com.codecool.turtleevent.model.dto.UserDTO;
 import com.codecool.turtleevent.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -30,7 +33,7 @@ public class EventService {
         return eventRepository.findAll();
     }
 
-    public RestResponseDTO saveEvent(Event event){
+    public RestResponseDTO addEvent(Event event){
         try {
             event.setCreateTime(LocalDateTime.now());
             eventRepository.save(event);
@@ -40,13 +43,27 @@ public class EventService {
         }
     }
 
-    public RestResponseDTO deleteEvent(EventIdDTO id){
+    public RestResponseDTO deleteEvent(IdDTO id){
         Optional<Event> event = eventRepository.findById(id.getId());
         if(event.isPresent()) {
             eventRepository.delete(event.get());
             return new RestResponseDTO(true, "Event deleted!");
         }
         return new RestResponseDTO(false, "Event cannot be deleted!");
+    }
+
+    @Transactional
+    public RestResponseDTO updateEvent(Event newEvent){
+        Optional<Event> event = eventRepository.findById(newEvent.getId());
+        if(event.isPresent()) {
+            if(newEvent.getName() != null) event.get().setName(newEvent.getName());
+            if(newEvent.getDescription() != null) event.get().setDescription(newEvent.getDescription());
+            if(newEvent.getLocation() != null) event.get().setLocation(newEvent.getLocation());
+            if(newEvent.getFromDate() != null) event.get().setFromDate(newEvent.getFromDate());
+            if(newEvent.getToDate() != null) event.get().setToDate(newEvent.getToDate());
+            return new RestResponseDTO(true, "Event is up to date!");
+        }
+        return new RestResponseDTO(false, "Event cannot be updated!");
     }
 
 }

@@ -1,6 +1,7 @@
 package com.codecool.turtleevent.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -18,9 +19,12 @@ public class Event {
     private Long id;
     private String name;
     private String description;
+    private String location;
     @Column(name="from_date")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime fromDate;
     @Column(name="to_date")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime toDate;
 
     @OneToMany(mappedBy = "event", cascade = {CascadeType.ALL})
@@ -67,6 +71,14 @@ public class Event {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public LocalDateTime getFromDate() {

@@ -1,13 +1,13 @@
 package com.codecool.turtleevent.model.dto;
 
-public class UserIdDTO {
+public class IdDTO {
 
     private Long id;
 
-    public UserIdDTO() {
+    public IdDTO() {
     }
 
-    public UserIdDTO(Long id) {
+    public IdDTO(Long id) {
         this.id = id;
     }
 

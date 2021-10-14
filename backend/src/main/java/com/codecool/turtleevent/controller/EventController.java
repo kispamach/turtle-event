@@ -1,13 +1,12 @@
 package com.codecool.turtleevent.controller;
 
 import com.codecool.turtleevent.model.Event;
-import com.codecool.turtleevent.model.dto.EventIdDTO;
+import com.codecool.turtleevent.model.dto.IdDTO;
 import com.codecool.turtleevent.model.dto.RestResponseDTO;
 import com.codecool.turtleevent.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -28,16 +27,22 @@ public class EventController {
 
     @PostMapping("create")
     public RestResponseDTO createEvent(@RequestBody Event newEvent) {
-        return eventService.saveEvent(newEvent);
+        return eventService.addEvent(newEvent);
     }
 
-    @GetMapping("find")
-    public Event getEventById(@RequestBody EventIdDTO id) {
+    @GetMapping("")
+    public Event getEventById(@RequestBody IdDTO id) {
         return eventService.findEventById(id.getId());
     }
 
     @DeleteMapping("delete")
-    public RestResponseDTO deleteEventById(@RequestBody EventIdDTO id) {
+    public RestResponseDTO deleteEventById(@RequestBody IdDTO id) {
         return eventService.deleteEvent(id);
     }
+
+    @PutMapping("update")
+    public RestResponseDTO updateEventById(@RequestBody Event newEvent) {
+        return eventService.updateEvent(newEvent);
+    }
+
 }

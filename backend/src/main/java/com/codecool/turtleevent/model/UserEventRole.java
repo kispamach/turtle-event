@@ -1,7 +1,6 @@
 package com.codecool.turtleevent.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -9,6 +8,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name="user_event_role")
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+@JsonView(User.UserView.class)
 public class UserEventRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +32,13 @@ public class UserEventRole {
     private LocalDateTime createTime;
 
     public UserEventRole() {
+    }
+
+    public UserEventRole(User user, Event event, RoleType roleType, LocalDateTime createTime) {
+        this.user = user;
+        this.event = event;
+        this.role = roleType;
+        this.createTime = createTime;
     }
 
     public Long getId() {
