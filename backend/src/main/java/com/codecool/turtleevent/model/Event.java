@@ -3,6 +3,7 @@ package com.codecool.turtleevent.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,6 +13,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="events")
+@JsonView(User.UserView.class)
 public class Event {
 
     @Id

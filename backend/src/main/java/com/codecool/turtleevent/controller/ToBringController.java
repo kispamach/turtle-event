@@ -3,12 +3,10 @@ package com.codecool.turtleevent.controller;
 import com.codecool.turtleevent.model.ToBring;
 import com.codecool.turtleevent.model.UserEventRole;
 import com.codecool.turtleevent.model.dto.IdDTO;
+import com.codecool.turtleevent.model.dto.RestResponseDTO;
 import com.codecool.turtleevent.service.ToBringService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,8 +31,23 @@ public class ToBringController {
         return toBringService.getAllByEvent(eventId);
     }
 
-    @GetMapping("by-bringer")
-    public List<ToBring> getAllByUser(@RequestBody IdDTO bringerId) {
-        return toBringService.getAllByBringer(userId);
+//    @GetMapping("by-bringer")
+//    public List<ToBring> getAllByUser(@RequestBody IdDTO bringerId) {
+//        return toBringService.getAllByBringer(userId);
+//    }
+
+    @PostMapping("add")
+    public RestResponseDTO addToBring(@RequestBody ToBring toBring) {
+        return toBringService.add(toBring);
+    }
+
+    @PutMapping("update")
+    public RestResponseDTO updateToBring(@RequestBody ToBring toBring) {
+        return toBringService.update(toBring);
+    }
+
+    @DeleteMapping("delete")
+    public RestResponseDTO deleteToBring(@RequestBody IdDTO id) {
+        return toBringService.delete(id.getId());
     }
 }

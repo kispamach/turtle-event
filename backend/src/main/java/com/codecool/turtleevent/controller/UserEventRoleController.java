@@ -41,5 +41,15 @@ public class UserEventRoleController {
         return userEventRoleService.addUserEventRole(userEventRole);
     }
 
+    @DeleteMapping("delete")
+    public RestResponseDTO deleteUserEventRole(@RequestBody IdDTO id) {
+        return userEventRoleService.delete(id.getId());
+    }
+
+    @PutMapping("update")
+    public RestResponseDTO updateUserEventRole(@RequestBody UserEventRole userEventRole) {
+        return userEventRoleService.update(userEventRole);
+    }
+
 
 }

@@ -1,21 +1,23 @@
 package com.codecool.turtleevent.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
 @Entity
 @Table(name="to_bring")
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+@JsonView(User.UserView.class)
 public class ToBring {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "to_bring_id", referencedColumnName = "id")
+    @JoinColumn(name = "event_id", referencedColumnName = "id")
     @JsonBackReference(value="event-tobring")
     private Event event;
 
@@ -29,7 +31,7 @@ public class ToBring {
     @JsonManagedReference(value="bringers-tobring")
     private Set<Bringer> bringers;
     @Column(name = "create_time", nullable = false)
-    private Date createTime;
+    private LocalDateTime createTime;
 
     public ToBring() {
     }
@@ -90,11 +92,11 @@ public class ToBring {
         this.bringers = bringers;
     }
 
-    public Date getCreateTime() {
+    public LocalDateTime getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
     }
 }

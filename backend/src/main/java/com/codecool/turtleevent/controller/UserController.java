@@ -1,6 +1,7 @@
 package com.codecool.turtleevent.controller;
 
 import com.codecool.turtleevent.model.User;
+import com.codecool.turtleevent.model.dto.AddFriendDTO;
 import com.codecool.turtleevent.model.dto.IdDTO;
 import com.codecool.turtleevent.model.dto.RestResponseDTO;
 import com.codecool.turtleevent.model.dto.UserDTO;
@@ -29,8 +30,7 @@ public class UserController {
     }
 
     @PostMapping(value = "registration")
-    @JsonView(User.UserView.class)
-    public RestResponseDTO registerUser(@RequestBody User newUser){
+    public RestResponseDTO registerUser(@RequestBody UserDTO newUser){
         return userService.saveUser(newUser);
     }
 
@@ -51,8 +51,8 @@ public class UserController {
     }
 
     @PutMapping("add-friend")
-    public RestResponseDTO addFriend(@RequestBody IdDTO user, @RequestBody IdDTO friendUser){
-        return userService.addFriend(user, friendUser);
+    public RestResponseDTO addFriend(@RequestBody AddFriendDTO addFriendDTO){
+        return userService.addFriend(addFriendDTO);
     }
 
 }

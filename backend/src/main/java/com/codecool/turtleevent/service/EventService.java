@@ -2,6 +2,7 @@ package com.codecool.turtleevent.service;
 
 import com.codecool.turtleevent.model.Event;
 import com.codecool.turtleevent.model.User;
+import com.codecool.turtleevent.model.dto.EventDTO;
 import com.codecool.turtleevent.model.dto.IdDTO;
 import com.codecool.turtleevent.model.dto.RestResponseDTO;
 import com.codecool.turtleevent.model.dto.UserDTO;
@@ -33,10 +34,17 @@ public class EventService {
         return eventRepository.findAll();
     }
 
-    public RestResponseDTO addEvent(Event event){
+    public RestResponseDTO addEvent(EventDTO event){
         try {
-            event.setCreateTime(LocalDateTime.now());
-            eventRepository.save(event);
+            Event newEvent = new Event();
+            newEvent.setLocation(event.getLocation());
+            newEvent.setName(event.getName());
+            newEvent.setDescription(event.getDescription());
+            newEvent.setFromDate(event.getFromDate());
+            newEvent.setToDate(event.getToDate());
+            newEvent.setCreateTime(LocalDateTime.now());
+
+            eventRepository.save(newEvent);
             return new RestResponseDTO(true, "Event created!");
         } catch (Exception e) {
             return new RestResponseDTO(false, "Event cannot be created!");

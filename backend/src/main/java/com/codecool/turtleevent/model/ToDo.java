@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -17,7 +18,7 @@ public class ToDo {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "to_do_id", referencedColumnName = "id")
+    @JoinColumn(name = "event_id", referencedColumnName = "id")
     @JsonBackReference(value="event-todo")
     private Event event;
 
@@ -28,7 +29,7 @@ public class ToDo {
     private Set<Doer> doers = new HashSet<>();
 
     @Column(name = "create_time", nullable = false)
-    private Date createTime;
+    private LocalDateTime createTime;
 
     public ToDo() {
     }
@@ -65,11 +66,11 @@ public class ToDo {
         this.doers = doers;
     }
 
-    public Date getCreateTime() {
+    public LocalDateTime getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
     }
 }

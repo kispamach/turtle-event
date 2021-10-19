@@ -1,6 +1,7 @@
 package com.codecool.turtleevent.service;
 
 import com.codecool.turtleevent.model.User;
+import com.codecool.turtleevent.model.dto.AddFriendDTO;
 import com.codecool.turtleevent.model.dto.IdDTO;
 import com.codecool.turtleevent.model.dto.RestResponseDTO;
 import com.codecool.turtleevent.model.dto.UserDTO;
@@ -32,12 +33,21 @@ public class UserService {
        return userRepository.findAll();
     }
 
-    public RestResponseDTO saveUser(User user){
+    public RestResponseDTO saveUser(UserDTO userDTO){
         try {
+            User user = new User();
+
+            user.setUserName(userDTO.getUserName());
+            user.setFirstName(userDTO.getFirstName());
+            user.setLastName(userDTO.getLastName());
+            user.setEmail(userDTO.getEmail());
+            user.setPassword(userDTO.getPassword());
             user.setRegistered(LocalDateTime.now());
             userRepository.save(user);
+            System.out.println("DTO true");
             return new RestResponseDTO(true, "Registration successful!");
         } catch (Exception e) {
+            System.out.println("DTO false");
             return new RestResponseDTO(false, "Registration failed!");
         }
     }
@@ -66,9 +76,9 @@ public class UserService {
     }
 
     @Transactional
-    public RestResponseDTO addFriend(IdDTO user1, IdDTO user2){
-        Optional<User> user = userRepository.findById(user1.getId());
-        Optional<User> friendUser = userRepository.findById(user2.getId());
+    public RestResponseDTO addFriend(AddFriendDTO addFriendDTO){
+        Optional<User> user = userRepository.findById(addFriendDTO.getUserId());
+        Optional<User> friendUser = userRepository.findById(addFriendDTO.getFriendId());
 
         if(user.isPresent() && friendUser.isPresent()) {
             List<User> userFriends = user.get().getFriends();

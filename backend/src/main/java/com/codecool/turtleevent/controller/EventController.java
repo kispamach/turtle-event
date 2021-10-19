@@ -1,6 +1,7 @@
 package com.codecool.turtleevent.controller;
 
 import com.codecool.turtleevent.model.Event;
+import com.codecool.turtleevent.model.dto.EventDTO;
 import com.codecool.turtleevent.model.dto.IdDTO;
 import com.codecool.turtleevent.model.dto.RestResponseDTO;
 import com.codecool.turtleevent.service.EventService;
@@ -26,7 +27,7 @@ public class EventController {
     }
 
     @PostMapping("create")
-    public RestResponseDTO createEvent(@RequestBody Event newEvent) {
+    public RestResponseDTO createEvent(@RequestBody EventDTO newEvent) {
         return eventService.addEvent(newEvent);
     }
 

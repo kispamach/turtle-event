@@ -1,8 +1,6 @@
 package com.codecool.turtleevent.service;
 
-import com.codecool.turtleevent.model.Event;
-import com.codecool.turtleevent.model.User;
-import com.codecool.turtleevent.model.UserEventRole;
+import com.codecool.turtleevent.model.*;
 import com.codecool.turtleevent.model.dto.IdDTO;
 import com.codecool.turtleevent.model.dto.RestResponseDTO;
 import com.codecool.turtleevent.model.dto.UserEventRoleDTO;
@@ -11,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,5 +61,28 @@ public class UserEventRoleService {
             return new RestResponseDTO(true, "User - event connection created!");
         }
         return new RestResponseDTO(false, "Failed to create User - event connection!");
+    }
+
+    public RestResponseDTO delete(Long id) {
+        Optional<UserEventRole> userEventRole = userEventRoleRepository.findById(id);
+        if(userEventRole.isPresent()) {
+            userEventRoleRepository.delete(userEventRole.get());
+            return new RestResponseDTO(true, "'User-Event-Role' deleted successfully!");
+        }
+        return new RestResponseDTO(false, "Failed to delete 'User-Event-Role'!");
+    }
+
+    public RestResponseDTO update(UserEventRole newUserEventRole) {
+        Optional<UserEventRole> userEventRole = userEventRoleRepository.findById(newUserEventRole.getId());
+
+        if (userEventRole.isPresent()) {
+            try {
+                userEventRole.get().setRole(newUserEventRole.getRole());
+                return new RestResponseDTO(true, "The role update is successful");
+            } catch (Exception e) {
+                return new RestResponseDTO(false, "Not valid role type");
+            }
+        }
+        return new RestResponseDTO(false, "Failed to update role type!");
     }
 }
