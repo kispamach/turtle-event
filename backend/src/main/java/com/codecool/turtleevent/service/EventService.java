@@ -61,7 +61,7 @@ public class EventService {
     }
 
     @Transactional
-    public RestResponseDTO updateEvent(Event newEvent){
+    public RestResponseDTO updateEvent(EventDTO newEvent){
         Optional<Event> event = eventRepository.findById(newEvent.getId());
         if(event.isPresent()) {
             if(newEvent.getName() != null) event.get().setName(newEvent.getName());

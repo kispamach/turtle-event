@@ -22,7 +22,7 @@ public class UserEventRoleController {
     }
 
     @GetMapping("all")
-    public List<UserEventRole> getAll() {
+    public List<UserEventRoleDTO> getAll() {
         return userEventRoleService.getAll();
     }
 
@@ -47,9 +47,8 @@ public class UserEventRoleController {
     }
 
     @PutMapping("update")
-    public RestResponseDTO updateUserEventRole(@RequestBody UserEventRole userEventRole) {
+    public RestResponseDTO updateUserEventRole(@RequestBody UserEventRoleDTO userEventRole) {
         return userEventRoleService.update(userEventRole);
     }
-
 
 }

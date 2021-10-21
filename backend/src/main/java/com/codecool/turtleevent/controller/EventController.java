@@ -42,7 +42,7 @@ public class EventController {
     }
 
     @PutMapping("update")
-    public RestResponseDTO updateEventById(@RequestBody Event newEvent) {
+    public RestResponseDTO updateEventById(@RequestBody EventDTO newEvent) {
         return eventService.updateEvent(newEvent);
     }
 

@@ -4,10 +4,28 @@ import com.codecool.turtleevent.model.RoleType;
 
 public class UserEventRoleDTO {
 
+    private long id;
     private long userId;
     private long eventId;
-    private RoleType roleType;
+    private RoleType role;
 
+    public UserEventRoleDTO() {
+    }
+
+    public UserEventRoleDTO(long id, long userId, long eventId, RoleType role) {
+        this.id = id;
+        this.userId = userId;
+        this.eventId = eventId;
+        this.role = role;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public long getUserId() {
         return userId;
@@ -25,11 +43,11 @@ public class UserEventRoleDTO {
         this.eventId = eventId;
     }
 
-    public RoleType getRoleType() {
-        return roleType;
+    public RoleType getRole() {
+        return role;
     }
 
-    public void setRoleType(RoleType roleType) {
-        this.roleType = roleType;
+    public void setRole(RoleType roleType) {
+        this.role = roleType;
     }
 }

@@ -4,6 +4,7 @@ import com.codecool.turtleevent.model.Event;
 import com.codecool.turtleevent.model.ToBring;
 import com.codecool.turtleevent.model.dto.IdDTO;
 import com.codecool.turtleevent.model.dto.RestResponseDTO;
+import com.codecool.turtleevent.model.dto.ToBringDTO;
 import com.codecool.turtleevent.repository.ToBringRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ToBringService {
@@ -41,8 +43,17 @@ public class ToBringService {
         return toBring.orElse(null);
     }
 
-    public List<ToBring> getAll() {
-        return toBringRepository.findAll();
+    public List<ToBringDTO> getAll() {
+        List<ToBring> toBrings = toBringRepository.findAll();
+        List<ToBringDTO> toBringDTOList = toBrings.stream()
+                .map(toBring -> new ToBringDTO(toBring.getId(),
+                        toBring.getEvent().getId(),
+                        toBring.getTitle(),
+                        toBring.getComment(),
+                        toBring.getSubAmount(),
+                        toBring.getBringers().stream().map(t->t.getId()).collect(Collectors.toSet())))
+                .collect(Collectors.toList());
+        return toBringDTOList;
     }
 
 
@@ -53,12 +64,11 @@ public class ToBringService {
     }
 
 
-    public RestResponseDTO add(ToBring toBring) {
+    public RestResponseDTO add(ToBringDTO toBring) {
         try {
-//            Event event = eventService.findEventById(toBring.getEvent());
-            toBring.setCreateTime(LocalDateTime.now());
-            toBring.setSubAmount(0);
-            toBringRepository.save(toBring);
+            Event event = eventService.findEventById(toBring.getEventId());
+            ToBring newToBring = new ToBring(event, toBring.getTitle(), toBring.getComment(), 0, LocalDateTime.now());
+            toBringRepository.save(newToBring);
             return new RestResponseDTO(true, "'to bring' added successfully!");
         } catch (Exception e) {
             return new RestResponseDTO(false, "Failed to add!");

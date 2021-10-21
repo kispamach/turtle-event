@@ -4,6 +4,7 @@ import com.codecool.turtleevent.model.ToBring;
 import com.codecool.turtleevent.model.UserEventRole;
 import com.codecool.turtleevent.model.dto.IdDTO;
 import com.codecool.turtleevent.model.dto.RestResponseDTO;
+import com.codecool.turtleevent.model.dto.ToBringDTO;
 import com.codecool.turtleevent.service.ToBringService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class ToBringController {
     }
 
     @GetMapping("all")
-    public List<ToBring> getAll() {
+    public List<ToBringDTO> getAll() {
         return toBringService.getAll();
     }
 
@@ -37,7 +38,7 @@ public class ToBringController {
 //    }
 
     @PostMapping("add")
-    public RestResponseDTO addToBring(@RequestBody ToBring toBring) {
+    public RestResponseDTO addToBring(@RequestBody ToBringDTO toBring) {
         return toBringService.add(toBring);
     }
 

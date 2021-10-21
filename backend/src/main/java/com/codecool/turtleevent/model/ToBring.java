@@ -36,6 +36,15 @@ public class ToBring {
     public ToBring() {
     }
 
+    public ToBring(Event event, String title, String comment, int subAmount, LocalDateTime createTime) {
+        this.event = event;
+        this.title = title;
+        this.comment = comment;
+        this.subAmount = subAmount;
+        this.createTime = createTime;
+
+    }
+
     public Long getId() {
         return id;
     }

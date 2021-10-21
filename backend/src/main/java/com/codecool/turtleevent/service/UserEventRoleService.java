@@ -1,6 +1,8 @@
 package com.codecool.turtleevent.service;
 
-import com.codecool.turtleevent.model.*;
+import com.codecool.turtleevent.model.Event;
+import com.codecool.turtleevent.model.User;
+import com.codecool.turtleevent.model.UserEventRole;
 import com.codecool.turtleevent.model.dto.IdDTO;
 import com.codecool.turtleevent.model.dto.RestResponseDTO;
 import com.codecool.turtleevent.model.dto.UserEventRoleDTO;
@@ -9,10 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserEventRoleService {
@@ -47,8 +48,12 @@ public class UserEventRoleService {
         return userEventRoleRepository.findAllByUser(user);
     }
 
-    public List<UserEventRole> getAll() {
-        return userEventRoleRepository.findAll();
+    public List<UserEventRoleDTO> getAll() {
+        List<UserEventRole> userEventRoles = userEventRoleRepository.findAll();
+        List<UserEventRoleDTO> userEventRoleDTOList = userEventRoles.stream()
+                .map(t -> new UserEventRoleDTO(t.getId(), t.getUser().getId(), t.getEvent().getId(), t.getRole()))
+                .collect(Collectors.toList());
+        return userEventRoleDTOList;
     }
 
 
@@ -57,7 +62,7 @@ public class UserEventRoleService {
         Event event = eventService.findEventById(userEventRole.getEventId());
 
         if(user != null && event != null) {
-            userEventRoleRepository.save(new UserEventRole(user, event, userEventRole.getRoleType(), LocalDateTime.now()));
+            userEventRoleRepository.save(new UserEventRole(user, event, userEventRole.getRole(), LocalDateTime.now()));
             return new RestResponseDTO(true, "User - event connection created!");
         }
         return new RestResponseDTO(false, "Failed to create User - event connection!");
@@ -72,7 +77,7 @@ public class UserEventRoleService {
         return new RestResponseDTO(false, "Failed to delete 'User-Event-Role'!");
     }
 
-    public RestResponseDTO update(UserEventRole newUserEventRole) {
+    public RestResponseDTO update(UserEventRoleDTO newUserEventRole) {
         Optional<UserEventRole> userEventRole = userEventRoleRepository.findById(newUserEventRole.getId());
 
         if (userEventRole.isPresent()) {
