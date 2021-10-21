@@ -36,11 +36,12 @@ public class ToBring {
     public ToBring() {
     }
 
-    public ToBring(Event event, String title, String comment, int subAmount, LocalDateTime createTime) {
+    public ToBring(Event event, String title, String comment, int totalAmount, LocalDateTime createTime) {
         this.event = event;
         this.title = title;
         this.comment = comment;
-        this.subAmount = subAmount;
+        this.subAmount = 0;
+        this.totalAmount = totalAmount;
         this.createTime = createTime;
 
     }

@@ -1,12 +1,5 @@
 package com.codecool.turtleevent.model.dto;
 
-import com.codecool.turtleevent.model.Bringer;
-import com.codecool.turtleevent.model.Event;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Set;
 
 public class ToBringDTO {
@@ -16,6 +9,7 @@ public class ToBringDTO {
     private String title;
     private String comment;
     private int subAmount;
+    private int totalAmount;
     private Set<Long> bringerIDs;
 
     public ToBringDTO() {
@@ -27,12 +21,12 @@ public class ToBringDTO {
         this.comment = comment;
     }
 
-    public ToBringDTO(Long id, long eventId, String title, String comment, int subAmount, Set<Long> bringerIDs) {
+    public ToBringDTO(Long id, long eventId, String title, String comment, int totalAmount, Set<Long> bringerIDs) {
         this.id = id;
         this.eventId = eventId;
         this.title = title;
         this.comment = comment;
-        this.subAmount = subAmount;
+        this.totalAmount = totalAmount;
         this.bringerIDs = bringerIDs;
     }
 
@@ -76,11 +70,19 @@ public class ToBringDTO {
         this.subAmount = subAmount;
     }
 
+    public int getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(int totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
     public Set<Long> getBringerIDs() {
         return bringerIDs;
     }
 
-    public void setBringers(Set<Long> bringerIDs) {
+    public void setBringerIDs(Set<Long> bringerIDs) {
         this.bringerIDs = bringerIDs;
     }
 }

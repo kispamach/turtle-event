@@ -28,7 +28,7 @@ public class ToBringController {
     }
 
     @GetMapping("by-event")
-    public List<ToBring> getAllByEvent(@RequestBody IdDTO eventId) {
+    public List<ToBringDTO> getAllByEvent(@RequestBody IdDTO eventId) {
         return toBringService.getAllByEvent(eventId);
     }
 
@@ -43,12 +43,12 @@ public class ToBringController {
     }
 
     @PutMapping("update")
-    public RestResponseDTO updateToBring(@RequestBody ToBring toBring) {
+    public RestResponseDTO updateToBring(@RequestBody ToBringDTO toBring) {
         return toBringService.update(toBring);
     }
 
     @DeleteMapping("delete")
     public RestResponseDTO deleteToBring(@RequestBody IdDTO id) {
-        return toBringService.delete(id.getId());
+        return toBringService.delete(id);
     }
 }

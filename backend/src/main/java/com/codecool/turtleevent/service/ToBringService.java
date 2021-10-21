@@ -45,29 +45,39 @@ public class ToBringService {
 
     public List<ToBringDTO> getAll() {
         List<ToBring> toBrings = toBringRepository.findAll();
-        List<ToBringDTO> toBringDTOList = toBrings.stream()
+        return convertToDTO(toBrings);
+    }
+
+
+    public List<ToBringDTO> getAllByEvent(IdDTO eventId) {
+        Event event = eventService.findEventById(eventId.getId());
+        if (event != null) {
+            List<ToBring> toBringsByEvent = toBringRepository.findAllByEvent(event);
+            return convertToDTO(toBringsByEvent);
+        }
+        return null;
+    }
+
+    private List<ToBringDTO> convertToDTO(List<ToBring> toBringsByEvent) {
+        List<ToBringDTO> toBringDTOList = toBringsByEvent.stream()
                 .map(toBring -> new ToBringDTO(toBring.getId(),
                         toBring.getEvent().getId(),
                         toBring.getTitle(),
                         toBring.getComment(),
-                        toBring.getSubAmount(),
-                        toBring.getBringers().stream().map(t->t.getId()).collect(Collectors.toSet())))
+                        toBring.getTotalAmount(),
+                        toBring.getBringers().stream()
+                                .map(t -> t.getId())
+                                .collect(Collectors.toSet())))
                 .collect(Collectors.toList());
         return toBringDTOList;
-    }
-
-
-    public List<ToBring> getAllByEvent(IdDTO eventId) {
-        Event event = eventService.findEventById(eventId.getId());
-        if (event != null) return toBringRepository.findAllByEvent(event);
-        return null;
     }
 
 
     public RestResponseDTO add(ToBringDTO toBring) {
         try {
             Event event = eventService.findEventById(toBring.getEventId());
-            ToBring newToBring = new ToBring(event, toBring.getTitle(), toBring.getComment(), 0, LocalDateTime.now());
+            System.out.println(toBring.getTotalAmount());
+            ToBring newToBring = new ToBring(event, toBring.getTitle(), toBring.getComment(), toBring.getTotalAmount(), LocalDateTime.now());
             toBringRepository.save(newToBring);
             return new RestResponseDTO(true, "'to bring' added successfully!");
         } catch (Exception e) {
@@ -77,7 +87,7 @@ public class ToBringService {
 
 
     @Transactional
-    public RestResponseDTO update(ToBring newToBring) {
+    public RestResponseDTO update(ToBringDTO newToBring) {
         Optional<ToBring> toBring = toBringRepository.findById(newToBring.getId());
         if(toBring.isPresent()) {
             if(newToBring.getTitle() != null) toBring.get().setTitle(newToBring.getTitle());
@@ -89,8 +99,8 @@ public class ToBringService {
         return new RestResponseDTO(false, "'To bring' failed to update!");
     }
 
-    public RestResponseDTO delete(Long id) {
-        Optional<ToBring> toBring = toBringRepository.findById(id);
+    public RestResponseDTO delete(IdDTO id) {
+        Optional<ToBring> toBring = toBringRepository.findById(id.getId());
         if(toBring.isPresent()) {
             toBringRepository.delete(toBring.get());
             return new RestResponseDTO(true, "'To bring' deleted successfully!");
