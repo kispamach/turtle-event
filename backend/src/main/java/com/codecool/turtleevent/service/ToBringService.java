@@ -64,6 +64,7 @@ public class ToBringService {
                         toBring.getEvent().getId(),
                         toBring.getTitle(),
                         toBring.getComment(),
+                        toBring.getSubAmount(),
                         toBring.getTotalAmount(),
                         toBring.getBringers().stream()
                                 .map(t -> t.getId())
@@ -101,6 +102,16 @@ public class ToBringService {
             return new RestResponseDTO(true, "'To bring' updated!");
             }
         return new RestResponseDTO(false, "'To bring' failed to update!");
+    }
+
+    @Transactional
+    public void updateSubAmount(Long id, int amount){
+        ToBring toBring = toBringRepository.findById(id).orElse(null);
+        if (toBring != null) {
+            toBring.setSubAmount(toBring.getSubAmount() + amount);
+            System.out.println(toBring.getSubAmount() + amount);
+        }
+
     }
 
     public RestResponseDTO delete(IdDTO id) {

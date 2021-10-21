@@ -5,6 +5,7 @@ import com.codecool.turtleevent.model.ToBring;
 import com.codecool.turtleevent.model.dto.BringerDTO;
 import com.codecool.turtleevent.model.dto.IdDTO;
 import com.codecool.turtleevent.model.dto.RestResponseDTO;
+import com.codecool.turtleevent.model.dto.ToBringDTO;
 import com.codecool.turtleevent.service.BringerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -57,14 +58,13 @@ public class BringerController {
         return bringerService.changeAmount(id, amount);
     }
 
+    @PutMapping("update")
+    public RestResponseDTO updateBringer(@RequestBody BringerDTO bringer) {
+        return bringerService.update(bringer);
+    }
 
-//    @PutMapping("update")
-//    public RestResponseDTO updateToBring(@RequestBody ToBring toBring) {
-//        return toBringService.update(toBring);
-//    }
-//
-//    @DeleteMapping("delete")
-//    public RestResponseDTO deleteToBring(@RequestBody IdDTO id) {
-//        return toBringService.delete(id.getId());
-//    }
+    @DeleteMapping("delete")
+    public RestResponseDTO deleteBringer(@RequestBody IdDTO id) {
+        return bringerService.delete(id);
+    }
 }

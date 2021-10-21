@@ -34,6 +34,12 @@ public class ToDo {
     public ToDo() {
     }
 
+    public ToDo(Event event, String title, LocalDateTime createTime) {
+        this.event = event;
+        this.title = title;
+        this.createTime = createTime;
+    }
+
     public Long getId() {
         return id;
     }

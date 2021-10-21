@@ -21,11 +21,12 @@ public class ToBringDTO {
         this.comment = comment;
     }
 
-    public ToBringDTO(Long id, long eventId, String title, String comment, int totalAmount, Set<Long> bringerIDs) {
+    public ToBringDTO(Long id, long eventId, String title, String comment, int subAmount, int totalAmount, Set<Long> bringerIDs) {
         this.id = id;
         this.eventId = eventId;
         this.title = title;
         this.comment = comment;
+        this.subAmount = subAmount;
         this.totalAmount = totalAmount;
         this.bringerIDs = bringerIDs;
     }

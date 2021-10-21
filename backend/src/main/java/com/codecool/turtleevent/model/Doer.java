@@ -28,6 +28,13 @@ public class Doer {
     public Doer() {
     }
 
+    public Doer(ToDo toDo, User user, String attachment, LocalDateTime createTime) {
+        this.toDo = toDo;
+        this.user = user;
+        this.attachment = attachment;
+        this.createTime = createTime;
+    }
+
     public Long getId() {
         return id;
     }

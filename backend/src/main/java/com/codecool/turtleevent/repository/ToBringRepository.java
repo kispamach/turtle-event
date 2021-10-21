@@ -11,6 +11,4 @@ public interface ToBringRepository extends JpaRepository<ToBring, Long> {
 
     List<ToBring> findAllByEvent(Event event);
 
-    //hibaforrás talán, ismétlem talán!
-    List<ToBring> findAllByBringers(Bringer bringer);
 }

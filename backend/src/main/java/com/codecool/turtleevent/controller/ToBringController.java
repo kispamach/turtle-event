@@ -32,11 +32,6 @@ public class ToBringController {
         return toBringService.getAllByEvent(eventId);
     }
 
-//    @GetMapping("by-bringer")
-//    public List<ToBring> getAllByUser(@RequestBody IdDTO bringerId) {
-//        return toBringService.getAllByBringer(userId);
-//    }
-
     @PostMapping("add")
     public RestResponseDTO addToBring(@RequestBody ToBringDTO toBring) {
         return toBringService.add(toBring);

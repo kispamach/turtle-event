@@ -74,6 +74,7 @@ public class BringerService {
         return BringerDTOList;
     }
 
+
     public RestResponseDTO add(BringerDTO bringer) {
         try {
             ToBring toBring = toBringService.findById(bringer.getToBringId());
@@ -87,20 +88,20 @@ public class BringerService {
                         bringer.getAttachment(),
                         LocalDateTime.now());
                 bringerRepository.save(newBringer);
-                newBringer.getToBring().setSubAmount(newBringer.getToBring().getSubAmount() + newBringer.getAmount());
-                return new RestResponseDTO(true, "Registration successful!");
+                toBringService.updateSubAmount(toBring.getId(), newBringer.getAmount());
+                return new RestResponseDTO(true, "Bringer created successfully!");
             } else if (toBring == null) {
                 throw new ToBringNotFoundException("This 'to bring' does not exist!");
             } else {
                 throw new UserNotFoundException("This user does not exist!");
             }
         } catch (ToBringNotFoundException | UserNotFoundException e) {
-            return new RestResponseDTO(false, "Registration failed! " + e);
+            return new RestResponseDTO(false, "Bringer creation failed! " + e);
         }
     }
 
     @Transactional
-    public RestResponseDTO update(Bringer newBringer) {
+    public RestResponseDTO update(BringerDTO newBringer) {
         Optional<Bringer> bringer = bringerRepository.findById(newBringer.getId());
         if (bringer.isPresent()) {
             if (newBringer.getAmount() != 0) bringer.get().setAmount(newBringer.getAmount());
@@ -151,5 +152,12 @@ public class BringerService {
     }
 
 
-
+    public RestResponseDTO delete(IdDTO id) {
+        Bringer bringer = bringerRepository.findById(id.getId()).orElse(null);
+        if (bringer != null){
+            bringerRepository.delete(bringer);
+            return new RestResponseDTO(true, "Bringer deleted.");
+        }
+        return new RestResponseDTO(false, "Bringer can't be deleted.");
+    }
 }
