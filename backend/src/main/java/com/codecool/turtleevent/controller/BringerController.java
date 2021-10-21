@@ -2,6 +2,7 @@ package com.codecool.turtleevent.controller;
 
 import com.codecool.turtleevent.model.Bringer;
 import com.codecool.turtleevent.model.ToBring;
+import com.codecool.turtleevent.model.dto.BringerDTO;
 import com.codecool.turtleevent.model.dto.IdDTO;
 import com.codecool.turtleevent.model.dto.RestResponseDTO;
 import com.codecool.turtleevent.service.BringerService;
@@ -22,22 +23,22 @@ public class BringerController {
     }
 
     @GetMapping("all")
-    public List<Bringer> getAll() {
+    public List<BringerDTO> getAll() {
         return bringerService.getAll();
     }
 
     @GetMapping("by-to-bring")
-    public List<Bringer> getAllByToBring(@RequestBody IdDTO toBringId) {
-        return bringerService.getAllByToBring(toBringId.getId());
+    public List<BringerDTO> getAllByToBring(@RequestBody IdDTO toBringId) {
+        return bringerService.getAllByToBring(toBringId);
     }
 
     @GetMapping("by-user")
-    public List<Bringer> getAllByUser(@RequestBody IdDTO userId) {
-        return bringerService.getAllByUser(userId.getId());
+    public List<BringerDTO> getAllByUser(@RequestBody IdDTO userId) {
+        return bringerService.getAllByUser(userId);
     }
 
     @PostMapping("add")
-    public RestResponseDTO addBringer(@RequestBody Bringer bringer) {
+    public RestResponseDTO addBringer(@RequestBody BringerDTO bringer) {
         return bringerService.add(bringer);
     }
 

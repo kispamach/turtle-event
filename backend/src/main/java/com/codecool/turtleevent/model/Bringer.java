@@ -30,6 +30,15 @@ public class Bringer {
     public Bringer() {
     }
 
+    public Bringer(ToBring toBring, User user, double price, int amount, String attachment, LocalDateTime createTime) {
+        this.toBring = toBring;
+        this.user = user;
+        this.price = price;
+        this.amount = amount;
+        this.attachment = attachment;
+        this.createTime = createTime;
+    }
+
     public long getId() {
         return id;
     }

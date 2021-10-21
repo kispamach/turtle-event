@@ -3,8 +3,10 @@ package com.codecool.turtleevent.service;
 import com.codecool.turtleevent.model.Bringer;
 import com.codecool.turtleevent.model.ToBring;
 import com.codecool.turtleevent.model.User;
+import com.codecool.turtleevent.model.dto.BringerDTO;
 import com.codecool.turtleevent.model.dto.IdDTO;
 import com.codecool.turtleevent.model.dto.RestResponseDTO;
+import com.codecool.turtleevent.model.dto.ToBringDTO;
 import com.codecool.turtleevent.repository.BringerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BringerService {
@@ -36,29 +39,63 @@ public class BringerService {
         this.userService = userService;
     }
 
-    public List<Bringer> getAll() {
-        return bringerRepository.findAll();
+    public List<BringerDTO> getAll() {
+        List<Bringer> bringers = bringerRepository.findAll();
+        return convertToDTO(bringers);
     }
 
-    public List<Bringer> getAllByToBring(Long id) {
-        ToBring toBring = toBringService.findById(id);
-        return bringerRepository.findAllByToBring(toBring);
-
+    public List<BringerDTO> getAllByToBring(IdDTO id) {
+        ToBring toBring = toBringService.findById(id.getId());
+        if (toBring != null) {
+            List<Bringer> bringers = bringerRepository.findAllByToBring(toBring);
+            return convertToDTO(bringers);
+        }
+        return null;
     }
 
-    public List<Bringer> getAllByUser(Long userId) {
-        User user = userService.findUserById(userId);
-        return bringerRepository.findAllByUser(user);
+    public List<BringerDTO> getAllByUser(IdDTO userId) {
+        User user = userService.findUserById(userId.getId());
+        if (user != null) {
+            List<Bringer> bringers = bringerRepository.findAllByUser(user);
+            return convertToDTO(bringers);
+        }
+        return null;
     }
 
-    public RestResponseDTO add(Bringer bringer) {
+    private List<BringerDTO> convertToDTO(List<Bringer> bringers) {
+        List<BringerDTO> BringerDTOList = bringers.stream()
+                .map(bringer -> new BringerDTO(bringer.getId(),
+                        bringer.getToBring().getId(),
+                        bringer.getUser().getId(),
+                        bringer.getPrice(),
+                        bringer.getAmount(),
+                        bringer.getAttachment()))
+                .collect(Collectors.toList());
+        return BringerDTOList;
+    }
+
+    public RestResponseDTO add(BringerDTO bringer) {
         try {
-            bringer.setCreateTime(LocalDateTime.now());
-            bringerRepository.save(bringer);
-            bringer.getToBring().setSubAmount(bringer.getToBring().getSubAmount() + bringer.getAmount());
-            return new RestResponseDTO(true, "Registration successful!");
-        } catch (Exception e) {
-            return new RestResponseDTO(false, "Registration failed!");
+            ToBring toBring = toBringService.findById(bringer.getToBringId());
+            User user = userService.findUserById(bringer.getUserId());
+            if (toBring != null && user != null) {
+                Bringer newBringer = new Bringer(
+                        toBring,
+                        user,
+                        bringer.getPrice(),
+                        bringer.getAmount(),
+                        bringer.getAttachment(),
+                        LocalDateTime.now());
+                bringerRepository.save(newBringer);
+                newBringer.getToBring().setSubAmount(newBringer.getToBring().getSubAmount() + newBringer.getAmount());
+                return new RestResponseDTO(true, "Registration successful!");
+            } else if (toBring == null) {
+                throw new ToBringNotFoundException("This 'to bring' does not exist!");
+            } else {
+                throw new UserNotFoundException("This user does not exist!");
+            }
+        } catch (ToBringNotFoundException | UserNotFoundException e) {
+            return new RestResponseDTO(false, "Registration failed! " + e);
         }
     }
 

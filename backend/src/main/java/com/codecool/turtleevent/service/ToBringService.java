@@ -76,10 +76,14 @@ public class ToBringService {
     public RestResponseDTO add(ToBringDTO toBring) {
         try {
             Event event = eventService.findEventById(toBring.getEventId());
-            System.out.println(toBring.getTotalAmount());
-            ToBring newToBring = new ToBring(event, toBring.getTitle(), toBring.getComment(), toBring.getTotalAmount(), LocalDateTime.now());
-            toBringRepository.save(newToBring);
-            return new RestResponseDTO(true, "'to bring' added successfully!");
+            if (event != null) {
+                ToBring newToBring = new ToBring(event, toBring.getTitle(), toBring.getComment(), toBring.getTotalAmount(), LocalDateTime.now());
+                toBringRepository.save(newToBring);
+                return new RestResponseDTO(true, "'to bring' added successfully!");
+            } else {
+                throw new EventNotFoundException("This event does not exist!");
+            }
+
         } catch (Exception e) {
             return new RestResponseDTO(false, "Failed to add!");
         }
