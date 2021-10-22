@@ -1,11 +1,7 @@
 package com.codecool.turtleevent.service;
 
-import com.codecool.turtleevent.model.Event;
-import com.codecool.turtleevent.model.User;
-import com.codecool.turtleevent.model.dto.EventDTO;
-import com.codecool.turtleevent.model.dto.IdDTO;
-import com.codecool.turtleevent.model.dto.RestResponseDTO;
-import com.codecool.turtleevent.model.dto.UserDTO;
+import com.codecool.turtleevent.model.*;
+import com.codecool.turtleevent.model.dto.*;
 import com.codecool.turtleevent.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EventService {
@@ -30,8 +27,34 @@ public class EventService {
         return event.orElse(null);
     }
 
-    public List<Event> getAllEvent() {
-        return eventRepository.findAll();
+    public List<EventDTO> getAllEvent() {
+        List<Event> events = eventRepository.findAll();
+        return convertToDTO(events);
+    }
+
+    /** Converts a list of Events into a list of EventDTOs */
+    private List<EventDTO> convertToDTO(List<Event> events) {
+        return events.stream()
+                .map(event -> new EventDTO(event.getId(),
+                        event.getName(),
+                        event.getDescription(),
+                        event.getLocation(),
+                        event.getFromDate(),
+                        event.getToDate(),
+                        event.getUserRoles().stream()
+                                .map(UserEventRole::getId)
+                                .collect(Collectors.toSet()),
+                        event.getToBring().stream()
+                                .map(ToBring::getId)
+                                .collect(Collectors.toSet()),
+                        event.getToDo().stream()
+                                .map(ToDo::getId)
+                                .collect(Collectors.toSet()),
+                        event.getMessages().stream()
+                                .map(Message::getId)
+                                .collect(Collectors.toSet()),
+                        event.getCreateTime()))
+                .collect(Collectors.toList());
     }
 
     public RestResponseDTO addEvent(EventDTO event){

@@ -38,22 +38,33 @@ public class UserEventRoleService {
         this.userService = userService;
     }
 
-    public List<UserEventRole> getAllByEvent(IdDTO eventId) {
+    public List<UserEventRoleDTO> getAllByEvent(IdDTO eventId) {
         Event event = eventService.findEventById(eventId.getId());
-        return userEventRoleRepository.findAllByEvent(event);
+        List<UserEventRole> userEventRoles = userEventRoleRepository.findAllByEvent(event);
+        return convertToDTO(userEventRoles);
+
     }
 
-    public List<UserEventRole> getAllByUser(IdDTO userId) {
+    public List<UserEventRoleDTO> getAllByUser(IdDTO userId) {
         User user = userService.findUserById(userId.getId());
-        return userEventRoleRepository.findAllByUser(user);
+        List<UserEventRole> userEventRoles = userEventRoleRepository.findAllByUser(user);
+        return convertToDTO(userEventRoles);
     }
 
     public List<UserEventRoleDTO> getAll() {
         List<UserEventRole> userEventRoles = userEventRoleRepository.findAll();
-        List<UserEventRoleDTO> userEventRoleDTOList = userEventRoles.stream()
-                .map(t -> new UserEventRoleDTO(t.getId(), t.getUser().getId(), t.getEvent().getId(), t.getRole()))
+        return convertToDTO(userEventRoles);
+    }
+
+    /** Converts a list of UserEventRole into a list of UserEventRoleDTO */
+    private List<UserEventRoleDTO> convertToDTO(List<UserEventRole> userEventRoles){
+        return userEventRoles.stream()
+                .map(t -> new UserEventRoleDTO(
+                        t.getId(),
+                        t.getUser().getId(),
+                        t.getEvent().getId(),
+                        t.getRole()))
                 .collect(Collectors.toList());
-        return userEventRoleDTOList;
     }
 
 

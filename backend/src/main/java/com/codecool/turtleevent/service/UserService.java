@@ -33,7 +33,7 @@ public class UserService {
        return userRepository.findAll();
     }
 
-    public RestResponseDTO saveUser(UserDTO userDTO){
+    public RestResponseDTO addUser(UserDTO userDTO){
         try {
             User user = new User();
 
@@ -44,10 +44,8 @@ public class UserService {
             user.setPassword(userDTO.getPassword());
             user.setRegistered(LocalDateTime.now());
             userRepository.save(user);
-            System.out.println("DTO true");
             return new RestResponseDTO(true, "Registration successful!");
         } catch (Exception e) {
-            System.out.println("DTO false");
             return new RestResponseDTO(false, "Registration failed!");
         }
     }

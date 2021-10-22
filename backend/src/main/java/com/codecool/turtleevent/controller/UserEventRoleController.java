@@ -27,12 +27,12 @@ public class UserEventRoleController {
     }
 
     @GetMapping("by-event")
-    public List<UserEventRole> userEventRoleByEvent(@RequestBody IdDTO eventId) {
+    public List<UserEventRoleDTO> userEventRoleByEvent(@RequestBody IdDTO eventId) {
         return userEventRoleService.getAllByEvent(eventId);
     }
 
     @GetMapping("by-user")
-    public List<UserEventRole> userEventRoleByUser(@RequestBody IdDTO userId) {
+    public List<UserEventRoleDTO> userEventRoleByUser(@RequestBody IdDTO userId) {
         return userEventRoleService.getAllByUser(userId);
     }
 

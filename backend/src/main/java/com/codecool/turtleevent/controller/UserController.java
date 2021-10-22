@@ -31,7 +31,7 @@ public class UserController {
 
     @PostMapping(value = "registration")
     public RestResponseDTO registerUser(@RequestBody UserDTO newUser){
-        return userService.saveUser(newUser);
+        return userService.addUser(newUser);
     }
 
     @GetMapping("all")

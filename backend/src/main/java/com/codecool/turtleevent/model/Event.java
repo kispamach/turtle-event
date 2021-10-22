@@ -13,7 +13,6 @@ import java.util.Set;
 
 @Entity
 @Table(name="events")
-@JsonView(User.UserView.class)
 public class Event {
 
     @Id

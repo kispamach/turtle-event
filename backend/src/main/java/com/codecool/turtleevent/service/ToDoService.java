@@ -1,5 +1,6 @@
 package com.codecool.turtleevent.service;
 
+import com.codecool.turtleevent.model.Doer;
 import com.codecool.turtleevent.model.Event;
 import com.codecool.turtleevent.model.ToBring;
 import com.codecool.turtleevent.model.ToDo;
@@ -52,16 +53,16 @@ public class ToDoService {
         return null;
     }
 
+    /** Converts a list of ToDos into a list of ToDoDTOs */
     private List<ToDoDTO> convertToDTO(List<ToDo> toDos) {
-        List<ToDoDTO> toDoDTOList = toDos.stream()
+        return toDos.stream()
                 .map(toDo -> new ToDoDTO(toDo.getId(),
                         toDo.getEvent().getId(),
                         toDo.getTitle(),
                         toDo.getDoers().stream()
-                                .map(t -> t.getId())
+                                .map(Doer::getId)
                                 .collect(Collectors.toSet())))
                 .collect(Collectors.toList());
-        return toDoDTOList;
     }
 
     public RestResponseDTO add(ToDoDTO toDo) {

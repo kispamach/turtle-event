@@ -31,6 +31,13 @@ public class Message {
     public Message() {
     }
 
+    public Message(User author, Event event, String text, LocalDateTime posted) {
+        this.author = author;
+        this.event = event;
+        this.text = text;
+        this.posted = posted;
+    }
+
     public Long getId() {
         return id;
     }

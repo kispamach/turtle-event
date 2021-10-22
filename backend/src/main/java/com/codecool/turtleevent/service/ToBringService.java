@@ -1,10 +1,12 @@
 package com.codecool.turtleevent.service;
 
+import com.codecool.turtleevent.model.Bringer;
 import com.codecool.turtleevent.model.Event;
 import com.codecool.turtleevent.model.ToBring;
 import com.codecool.turtleevent.model.dto.IdDTO;
 import com.codecool.turtleevent.model.dto.RestResponseDTO;
 import com.codecool.turtleevent.model.dto.ToBringDTO;
+import com.codecool.turtleevent.model.dto.ToDoDTO;
 import com.codecool.turtleevent.repository.ToBringRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,8 +60,9 @@ public class ToBringService {
         return null;
     }
 
+    /** Converts a list of ToBrings into a list of ToBringDTOs */
     private List<ToBringDTO> convertToDTO(List<ToBring> toBringsByEvent) {
-        List<ToBringDTO> toBringDTOList = toBringsByEvent.stream()
+        return toBringsByEvent.stream()
                 .map(toBring -> new ToBringDTO(toBring.getId(),
                         toBring.getEvent().getId(),
                         toBring.getTitle(),
@@ -67,10 +70,9 @@ public class ToBringService {
                         toBring.getSubAmount(),
                         toBring.getTotalAmount(),
                         toBring.getBringers().stream()
-                                .map(t -> t.getId())
+                                .map(Bringer::getId)
                                 .collect(Collectors.toSet())))
                 .collect(Collectors.toList());
-        return toBringDTOList;
     }
 
 
