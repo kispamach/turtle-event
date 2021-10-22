@@ -6,7 +6,6 @@ import com.codecool.turtleevent.model.dto.RestResponseDTO;
 import com.codecool.turtleevent.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -38,5 +37,15 @@ public class MessageController {
     @PostMapping("add")
     public RestResponseDTO addMessage(@RequestBody MessageDTO message) {
         return messageService.addMessage(message);
+    }
+
+    @DeleteMapping("delete")
+    public RestResponseDTO deleteMessage(@RequestBody IdDTO messageId) {
+        return messageService.delete(messageId);
+    }
+
+    @PutMapping("update")
+    public RestResponseDTO updateMessage(@RequestBody MessageDTO message) {
+        return messageService.update(message);
     }
 }

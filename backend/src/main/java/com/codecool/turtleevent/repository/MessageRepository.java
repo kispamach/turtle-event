@@ -11,5 +11,5 @@ import java.util.List;
 public interface MessageRepository extends JpaRepository<Message, Long> {
     List<Message> findAllByEvent(Event event);
 
-    List<Message> findAllByUser(User user);
+    List<Message> findAllByAuthor(User user);
 }

@@ -47,7 +47,7 @@ public class MessageService {
 
     public List<MessageDTO> getAllByUser(IdDTO userId) {
         User user = userService.findUserById(userId.getId());
-        List<Message> messages = messageRepository.findAllByUser(user);
+        List<Message> messages = messageRepository.findAllByAuthor(user);
         return convertToDTO(messages);
     }
 
