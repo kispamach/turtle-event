@@ -1,10 +1,7 @@
 package com.codecool.turtleevent.service;
 
-import com.codecool.turtleevent.model.User;
-import com.codecool.turtleevent.model.dto.AddFriendDTO;
-import com.codecool.turtleevent.model.dto.IdDTO;
-import com.codecool.turtleevent.model.dto.RestResponseDTO;
-import com.codecool.turtleevent.model.dto.UserDTO;
+import com.codecool.turtleevent.model.*;
+import com.codecool.turtleevent.model.dto.*;
 import com.codecool.turtleevent.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -24,13 +22,47 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User findUserById(Long id){
-        Optional<User> user = userRepository.findById(id);
-        return user.orElse(null);
+    public UserDTO findUserDTOById(Long id){
+        User user = userRepository.findById(id).orElse(null);
+        return (user != null) ? this.convertToDTO(user) : null;
     }
 
-    public List<User> getAllUser(){
-       return userRepository.findAll();
+    public User findUserById(Long id){
+        return userRepository.findById(id).orElse(null);
+    }
+
+    public List<UserDTO> getAllUser(){
+       return this.convertToDTO(userRepository.findAll());
+    }
+
+    /** Converts a User into a UserDTO */
+    private UserDTO convertToDTO(User user) {
+        return new UserDTO(user.getId(),
+                user.getUserName(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getFriends().stream()
+                        .map(User::getId)
+                        .collect(Collectors.toList()),
+                user.getFriendOf().stream()
+                        .map(User::getId)
+                        .collect(Collectors.toList()),
+                user.getEventRoles().stream()
+                        .map(UserEventRole::getId)
+                        .collect(Collectors.toSet()),
+                user.getMessages().stream()
+                        .map(Message::getId)
+                        .collect(Collectors.toSet()),
+                user.getRegistered());
+    }
+
+    /** Converts a list of Users into a list of UserDTOs */
+    private List<UserDTO> convertToDTO(List<User> users) {
+        return users.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     public RestResponseDTO addUser(UserDTO userDTO){

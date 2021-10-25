@@ -27,15 +27,19 @@ public class EventService {
         return event.orElse(null);
     }
 
+    public EventDTO findEventDTOById(Long id){
+        Event event = eventRepository.findById(id).orElse(null);
+        return convertToDTO(event);
+    }
+
     public List<EventDTO> getAllEvent() {
         List<Event> events = eventRepository.findAll();
         return convertToDTO(events);
     }
 
-    /** Converts a list of Events into a list of EventDTOs */
-    private List<EventDTO> convertToDTO(List<Event> events) {
-        return events.stream()
-                .map(event -> new EventDTO(event.getId(),
+    /** Converts an Event into an EventDTO */
+    private EventDTO convertToDTO(Event event) {
+        return new EventDTO(event.getId(),
                         event.getName(),
                         event.getDescription(),
                         event.getLocation(),
@@ -53,7 +57,14 @@ public class EventService {
                         event.getMessages().stream()
                                 .map(Message::getId)
                                 .collect(Collectors.toSet()),
-                        event.getCreateTime()))
+                        event.getCreateTime());
+    }
+
+
+    /** Converts a list of Events into a list of EventDTOs */
+    private List<EventDTO> convertToDTO(List<Event> events) {
+        return events.stream()
+                .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 

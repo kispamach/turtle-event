@@ -23,10 +23,9 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("profile")
-    @JsonView(User.UserView.class)
-    public User getUserById(@RequestBody IdDTO userId){
-        return userService.findUserById(userId.getId());
+    @GetMapping("profile/{id}")
+    public UserDTO getUserById(@PathVariable Long id){
+        return userService.findUserDTOById(id);
     }
 
     @PostMapping(value = "registration")
@@ -35,8 +34,7 @@ public class UserController {
     }
 
     @GetMapping("all")
-    @JsonView(User.AllUsersView.class)
-    public List<User> getAllUsers(){
+    public List<UserDTO> getAllUsers(){
         return userService.getAllUser();
     }
 

@@ -26,14 +26,16 @@ public class EventController {
         return eventService.getAllEvent();
     }
 
+
+
     @PostMapping("create")
     public RestResponseDTO createEvent(@RequestBody EventDTO newEvent) {
         return eventService.addEvent(newEvent);
     }
 
-    @GetMapping("")
-    public Event getEventById(@RequestBody IdDTO id) {
-        return eventService.findEventById(id.getId());
+    @GetMapping("{id}")
+    public EventDTO getEventById(@PathVariable Long id) {
+        return eventService.findEventDTOById(id);
     }
 
     @DeleteMapping("delete")

@@ -1,11 +1,8 @@
 package com.codecool.turtleevent.controller;
 
-import com.codecool.turtleevent.model.Bringer;
-import com.codecool.turtleevent.model.ToBring;
 import com.codecool.turtleevent.model.dto.BringerDTO;
 import com.codecool.turtleevent.model.dto.IdDTO;
 import com.codecool.turtleevent.model.dto.RestResponseDTO;
-import com.codecool.turtleevent.model.dto.ToBringDTO;
 import com.codecool.turtleevent.service.BringerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -9,34 +9,26 @@ import java.util.Set;
 
 @Entity
 @Table(name="users")
-@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class User {
 
-    public static class UserView extends AllUsersView {
-    }
-
-    public static class AllUsersView{
-    }
-
-    @JsonView(AllUsersView.class)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JsonView(AllUsersView.class)
+
     @Column(name="user_name")
     private String userName;
-    @JsonView(AllUsersView.class)
+
     @Column(name="first_name")
     private String firstName;
-    @JsonView(AllUsersView.class)
+
     @Column(name="last_name")
     private String lastName;
-    @JsonView(AllUsersView.class)
+
     private String email;
-    @JsonView(AllUsersView.class)
+
     private String password;
 
-    @JsonView(UserView.class)
+
     @ManyToMany
     @JoinTable(name="friends",
             joinColumns=@JoinColumn(name="user_id"),
@@ -44,7 +36,7 @@ public class User {
     )
     private List<User> friends;
 
-    @JsonView(UserView.class)
+
     @ManyToMany
     @JoinTable(name="friends",
             joinColumns=@JoinColumn(name="friend_id"),
@@ -52,21 +44,38 @@ public class User {
     )
     private List<User> friendOf;
 
-    @JsonView(UserView.class)
+
     @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
     @JsonManagedReference(value="user-eventroles")
     private Set<UserEventRole> eventRoles;
 
-    @JsonView(UserView.class)
+
     @OneToMany(mappedBy = "author", cascade = {CascadeType.ALL})
     @JsonManagedReference(value="user-messages")
     private Set<Message> messages;
 
-    @JsonView(AllUsersView.class)
+
     @Column(nullable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime registered;
 
     public User() {
+    }
+
+    public User(String userName, String firstName, String lastName, String email,
+                String password, List<User> friends, List<User> friendOf,
+                Set<UserEventRole> eventRoles, Set<Message> messages,
+                LocalDateTime registered) {
+        this.userName = userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.friends = friends;
+        this.friendOf = friendOf;
+        this.eventRoles = eventRoles;
+        this.messages = messages;
+        this.registered = registered;
     }
 
     public Long getId() {

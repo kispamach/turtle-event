@@ -45,6 +45,10 @@ ReactDOM.render(
         render={(props) => <LandingPage {...props} />}
       />
       <Route
+        path="/event"
+        render={(props) => <LandingPage {...props} />}
+      />
+      <Route
         path="/profile-page"
         render={(props) => <ProfilePage {...props} />}
       />

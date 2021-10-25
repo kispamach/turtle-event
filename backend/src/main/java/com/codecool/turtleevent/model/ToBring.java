@@ -10,7 +10,6 @@ import java.util.Set;
 @Entity
 @Table(name="to_bring")
 @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
-@JsonView(User.UserView.class)
 public class ToBring {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -8,8 +8,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name="user_event_role")
-@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
-@JsonView(User.UserView.class)
 public class UserEventRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

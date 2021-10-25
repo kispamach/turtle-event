@@ -15,9 +15,9 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
       </header>
       <div className="container" style={{width: 500, alignSelf: 'center' | 20}}>
-        <p>
+        
           <User />
-        </p>
+        
         <button className="btn-round mr-1 btn-lg btn btn-outline-primary">Totti</button>
         <img src={logo} className="App-logo" alt="logo" />
       </div>

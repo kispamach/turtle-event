@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import UserDetails from "./UserDetails";
+import UserDetails from "components/Data/UserDetails";
 
 class User extends Component {
 
@@ -18,6 +18,7 @@ class User extends Component {
 
     componentDidMount() {
         this.getAllUser()
+        console.log(this.state.users);
     }
 
     render() {
