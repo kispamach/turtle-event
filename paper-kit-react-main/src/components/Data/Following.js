@@ -17,9 +17,9 @@ import {
     Col,
   } from "reactstrap";
 
-class Followers extends Component {
+class Following extends Component {
     state = {
-        followers: []
+        following: []
     }
 
     getUserById(userId) {
@@ -29,8 +29,8 @@ class Followers extends Component {
             .then(res => res.json())
             .then(json => {
                 this.setState({
-                    followers: [
-                        ...this.state.followers, 
+                    following: [
+                        ...this.state.following, 
                         {
                             userName: json.userName,
                             firstName: json.firstName,
@@ -41,28 +41,28 @@ class Followers extends Component {
                 })            
       }
 
-    getFollowers() {
+    getFollowing() {
         let url = '/user/profile/' + this.props.userId
         fetch(url)
             .then(res => res.json())
             .then(json => {
-                json.friendOfIds.map( (friendOf => this.getUserById(friendOf)))
+                json.friendIds.map( (friendOf => this.getUserById(friendOf)))
                 });
     }
 
     componentDidMount() {
-        this.getFollowers()
+        this.getFollowing()
     }
 
     render() {
         return (
             <div className="container">
-                {this.state.followers.map( (user, index) => 
-                <FollowerDetails key={index} index={index} user={user} fSize={this.state.followers.length}/>)}
+                {this.state.following.map( (user, index) => 
+                <FollowerDetails key={index} index={index} user={user} fSize={this.state.following.length}/>)}
             </div>
                 )
     }
 }
 
 
-export default Followers
+export default Following

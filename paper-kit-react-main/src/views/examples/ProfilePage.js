@@ -40,6 +40,7 @@ import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
 import UserDetails from "components/Data/UserDetails";
 import Followers from "components/Data/Followers";
+import Following from "components/Data/Following";
 
 function ProfilePage() {
   const [activeTab, setActiveTab] = React.useState("1");
@@ -75,7 +76,7 @@ function ProfilePage() {
                       toggle("1");
                     }}
                   >
-                    Follows
+                    Followers
                   </NavLink>
                 </NavItem>
                 <NavItem>
@@ -97,45 +98,20 @@ function ProfilePage() {
               <Row>
                 <Col className="ml-auto mr-auto" md="6">
                   <ul className="list-unstyled follows">                    
-                      <Followers userId="1"/>                  
-                    <hr />
-                    <li>
-                      <Row>
-                        <Col className="mx-auto" lg="2" md="4" xs="4">
-                          <img
-                            alt="..."
-                            className="img-circle img-no-padding img-responsive"
-                            src={
-                              require("assets/img/faces/ayo-ogunseinde-2.jpg")
-                                .default
-                            }
-                          />
-                        </Col>
-                        <Col lg="7" md="4" xs="4">
-                          <h6>
-                            Banks <br />
-                            <small>Singer</small>
-                          </h6>
-                        </Col>
-                        <Col lg="3" md="4" xs="4">
-                          <FormGroup check>
-                            <Label check>
-                              <Input defaultValue="" type="checkbox" />
-                              <span className="form-check-sign" />
-                            </Label>
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                    </li>
+                      <Followers userId="1"/>
                   </ul>
                 </Col>
               </Row>
             </TabPane>
-            <TabPane className="text-center" tabId="2" id="following">
-              <h3 className="text-muted">Not following anyone yet :(</h3>
-              <Button className="btn-round" color="warning">
-                Find artists
-              </Button>
+            <TabPane  tabId="2" id="following">
+              <Row>
+                <Col className="ml-auto mr-auto" md="6">
+                  <ul className="list-unstyled follows">  
+                    <Following userId="1"/>
+                    {/* <h3 className="text-muted">Not following anyone yet :(</h3> */}
+                  </ul>                
+                </Col>
+              </Row>
             </TabPane>
           </TabContent>
         </Container>

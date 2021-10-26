@@ -18,7 +18,6 @@ class User extends Component {
 
     componentDidMount() {
         this.getAllUser()
-        console.log(this.state.users);
     }
 
     render() {

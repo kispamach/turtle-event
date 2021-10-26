@@ -113,6 +113,22 @@ function ExamplesNavbar() {
             </NavItem>
             <NavItem>
               <NavLink
+                href="https://demos.creative-tim.com/paper-kit-react/#/documentation?ref=pkr-index-navbar"
+                target="_blank"
+              >
+                <i className="nc-icon nc-bus-front-12" /> New Event
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
+                href="/register-page"
+                target="_blank"
+              >
+                <i className="nc-icon nc-single-02" /> Register
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
                 data-placement="bottom"
                 href="/events"
                 target="_blank"
