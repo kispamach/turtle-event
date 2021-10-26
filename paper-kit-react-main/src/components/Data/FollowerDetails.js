@@ -26,7 +26,7 @@ import {
                         <img
                             alt="..."
                             className="img-circle img-no-padding img-responsive"
-                            src={require("assets/img/faces/clem-onojeghuo-2.jpg")
+                            src={require("assets/img/faces/default-face.jpg")
                                 .default} />
                     </Col>
                     <Col className="ml-auto mr-auto" lg="7" md="4" xs="4">

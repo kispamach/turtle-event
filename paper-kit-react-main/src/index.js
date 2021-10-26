@@ -45,7 +45,7 @@ ReactDOM.render(
         render={(props) => <LandingPage {...props} />}
       />
       <Route
-        path="/event"
+        path="/event-page"
         render={(props) => <LandingPage {...props} />}
       />
       <Route

@@ -64,7 +64,7 @@ function ProfilePage() {
       <ProfilePageHeader />
       <div className="section profile-content">
         <Container>
-        <UserDetails userId="1"/>
+        <UserDetails userId="5"/>
           <br />
           <div className="nav-tabs-navigation">
             <div className="nav-tabs-wrapper">
@@ -98,7 +98,7 @@ function ProfilePage() {
               <Row>
                 <Col className="ml-auto mr-auto" md="6">
                   <ul className="list-unstyled follows">                    
-                      <Followers userId="1"/>
+                      <Followers userId="5"/>
                   </ul>
                 </Col>
               </Row>
@@ -107,7 +107,7 @@ function ProfilePage() {
               <Row>
                 <Col className="ml-auto mr-auto" md="6">
                   <ul className="list-unstyled follows">  
-                    <Following userId="1"/>
+                    <Following userId="5"/>
                     {/* <h3 className="text-muted">Not following anyone yet :(</h3> */}
                   </ul>                
                 </Col>

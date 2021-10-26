@@ -85,22 +85,28 @@ class UserDetails extends Component {
                   <img
                     alt="..."
                     className="img-circle img-no-padding img-responsive"
-                    src={require("assets/img/faces/joe-gardner-2.jpg").default}
+                    src={require("assets/img/faces/default-face.jpg").default}
                   />
                 </div>
                 <div className="name">
+                  <h6><small>Username</small></h6>
                   <h4 className="title">
                   {this.state.userName} <br />
                   </h4>
                                   
                     <div className="form-group">
                       <h6 className="description">
-                          <input className="form-control" type="text" value={this.state.firstName} onChange={(e) => this.setState({ ...this.state, firstName: e.target.value })} /> 
+                        <small>Firstname</small><br />
+                        <input className="form-control" type="text" value={this.state.firstName} onChange={(e) => this.setState({ ...this.state, firstName: e.target.value })} /> 
                       </h6>
                       <h6 className="description">
-                          <input className="form-control" type="text" value={this.state.lastName} onChange={(e) => this.setState({ ...this.state, lastName: e.target.value })} /> 
+                        <small>Lastname</small><br />
+                        <input className="form-control" type="text" value={this.state.lastName} onChange={(e) => this.setState({ ...this.state, lastName: e.target.value })} /> 
                       </h6>
-                      <h6 className="description">{this.state.email}</h6>
+                      <h6 className="description">
+                        <small>Email</small><br />
+                        {this.state.email}
+                      </h6>
                     <div/>                  
                   </div>
                 </div>
@@ -109,7 +115,7 @@ class UserDetails extends Component {
               <Col className="ml-auto mr-auto text-center" md="6">
                 
                 <br />
-                <Button className="btn-round" type="submit" color="default" outline >
+                <Button className="btn-round" type="submit" color="primary" outline >
                   <i className="nc-icon nc-cloud-upload-94" /> Save
                 </Button>
               </Col>
@@ -121,13 +127,23 @@ class UserDetails extends Component {
                   <img
                     alt="..."
                     className="img-circle img-no-padding img-responsive"
-                    src={require("assets/img/faces/joe-gardner-2.jpg").default} />
+                    src={require("assets/img/faces/default-face.jpg").default} />
                 </div>
                 <div className="name">
+                    <h6><small>Username</small></h6>
                   <h4 className="title">
                     {this.state.userName} <br />
                   </h4>
-                  {<><h6 className="description">{this.state.firstName} {this.state.lastName}</h6><h6 className="description">{this.state.email}</h6></>}
+                  {<>
+                    <h6 className="description">
+                      <small>Name</small><br />
+                        {this.state.firstName} {this.state.lastName}
+                    </h6>
+                    <h6 className="description">
+                      <small>Email</small><br />
+                        {this.state.email}
+                    </h6>
+                  </>}
 
                 </div>
               </div><Row>

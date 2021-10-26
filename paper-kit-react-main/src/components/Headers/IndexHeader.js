@@ -34,11 +34,11 @@ function IndexHeader() {
             "url(" + require("assets/img/beach.png").default + ")",
         }}
       >
-        <div className="filter" />
+        <div className="filter-primary" />
         <div className="content-center">
           <Container>
             <div className="title-brand">
-              <h1 className="presentation-title">Turtle Event by haku</h1>
+              <h1 className="presentation-title">Turtle Event collect experiences</h1>
               <div className="fog-low">
                 <img
                   alt="..."

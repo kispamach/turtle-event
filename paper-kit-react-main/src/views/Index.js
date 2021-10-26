@@ -56,9 +56,9 @@ function Index() {
       <IndexNavbar />
       <IndexHeader />
       <div className="main">
-      <Container >
-        <EventList />
-      </Container>
+        <Container >
+          <EventList />
+        </Container>
       <DemoFooter />
       </div>
     </>
