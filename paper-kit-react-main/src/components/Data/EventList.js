@@ -22,16 +22,14 @@ class EventList extends Component {
     }
 
     render() {
-        return (
-            
-                
-            <Row>
-                {this.state.events.map( (event, index) => 
-                <EventListDetails key={index} event={event}/>)}
-            </Row>        
-              
-             
-                )
+        return (            
+            <div style={{marginTop: "1.9em"}}>    
+                <Row>
+                    {this.state.events.map( (event, index) => 
+                    <EventListDetails key={index} event={event}/>)}
+                </Row>   
+            </div>
+        )
     }
 }
 

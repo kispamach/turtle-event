@@ -22,15 +22,15 @@ import React from "react";
 import { Button, Card, Form, Input, Container, Row, Col } from "reactstrap";
 
 // core components
-import RegisterDetails from "components/Data/RegisterDetails";
-import LogOutNavbar from "components/Navbars/LogOutNavbar";
+import LogOutNavbar from "components/Navbars/LogOutNavbar.js";
+import LoginDetails from "components/Data/LoginDetails";
 
-function RegisterPage() {
+function LoginPage() {
   document.documentElement.classList.remove("nav-open");
   React.useEffect(() => {
-    document.body.classList.add("register-page");
+    document.body.classList.add("login-page");
     return function cleanup() {
-      document.body.classList.remove("register-page");
+      document.body.classList.remove("login-page");
     };
   });
 
@@ -41,21 +41,21 @@ function RegisterPage() {
         className="page-header"
         style={{
           backgroundImage:
-            "url(" + require("assets/img/register-page-bg.jpg").default + ")",
+            "url(" + require("assets/img/login-page-bg.jpg").default + ")",
         }}
       >
         <div className="filter" />
         <Container>
           <Row>
             <Col className="ml-auto mr-auto" lg="4">
-              <RegisterDetails />
+              <LoginDetails />
             </Col>
           </Row>
         </Container>
         <div className="footer register-footer text-center">
           <h6>
-            © {new Date().getFullYear()}, made with{" "} 
-            <i className="fa fa-heart" /> by Code Turtles
+            © {new Date().getFullYear()}, made with{" "}
+            <i className="fa fa-heart heart" /> by Code Turtles
           </h6>
         </div>
       </div>
@@ -63,4 +63,4 @@ function RegisterPage() {
   );
 }
 
-export default RegisterPage;
+export default LoginPage;

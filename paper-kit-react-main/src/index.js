@@ -30,7 +30,9 @@ import NucleoIcons from "views/NucleoIcons.js";
 import LandingPage from "views/examples/LandingPage.js";
 import ProfilePage from "views/examples/ProfilePage.js";
 import RegisterPage from "views/examples/RegisterPage.js";
-// others
+import LoginPage from "views/examples/LoginPage.js"
+import EventPage from "views/examples/EventPage.js"
+
 
 ReactDOM.render(
   <BrowserRouter>
@@ -46,7 +48,7 @@ ReactDOM.render(
       />
       <Route
         path="/event-page"
-        render={(props) => <LandingPage {...props} />}
+        render={(props) => <EventPage {...props} />}
       />
       <Route
         path="/profile-page"
@@ -55,6 +57,10 @@ ReactDOM.render(
       <Route
         path="/register-page"
         render={(props) => <RegisterPage {...props} />}
+      />
+      <Route
+        path="/login-page"
+        render={(props) => <LoginPage {...props} />}
       />
       <Redirect to="/index" />
     </Switch>

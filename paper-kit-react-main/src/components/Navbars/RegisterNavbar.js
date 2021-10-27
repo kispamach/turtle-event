@@ -33,7 +33,7 @@ import {
   Button,
 } from "reactstrap";
 
-function ExamplesNavbar() {
+function RegisterNavbar() {
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
 
@@ -45,13 +45,13 @@ function ExamplesNavbar() {
   React.useEffect(() => {
     const updateNavbarColor = () => {
       if (
-        document.documentElement.scrollTop > 299 ||
-        document.body.scrollTop > 299
+        document.documentElement.scrollTop > 99 ||
+        document.body.scrollTop > 99
       ) {
         setNavbarColor("bg-primary");
       } else if (
-        document.documentElement.scrollTop < 300 ||
-        document.body.scrollTop < 300
+        document.documentElement.scrollTop < 100 ||
+        document.body.scrollTop < 100
       ) {
         setNavbarColor("navbar-transparent");
       }
@@ -121,6 +121,14 @@ function ExamplesNavbar() {
             </NavItem>
             <NavItem>
               <NavLink
+                href="/register-page"
+                target="_blank"
+              >
+                <i className="nc-icon nc-single-02" /> Register
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
                 data-placement="bottom"
                 href="/events"
                 target="_blank"
@@ -169,4 +177,4 @@ function ExamplesNavbar() {
   );
 }
 
-export default ExamplesNavbar;
+export default RegisterNavbar;

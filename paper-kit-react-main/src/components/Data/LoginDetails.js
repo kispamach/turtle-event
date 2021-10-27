@@ -4,7 +4,7 @@ import React, {Component} from "react";
 import { Button, Card, Form, Input, Container, Row, Col } from "reactstrap";
 
 
-class RegisterDetails extends Component {
+class LoginDetails extends Component {
 
   constructor(props) {
     super(props);
@@ -36,12 +36,10 @@ class RegisterDetails extends Component {
         this.getUserById()
     } 
 
-    register(event) {      
+    register(event) {
+      
       const url = "/user/registration/"
-      let userData = {  
-        userName: this.state.userName,
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,      
+      let userData = {        
         email: this.state.email,
         password: this.state.password
       }
@@ -57,7 +55,8 @@ class RegisterDetails extends Component {
        .then(response => response.json())
        .then(data => console.log(data)) 
        .catch(err => console.log(err))
-       window.open("/login-page", "_self")
+      console.log("password: " + this.state.password);
+      console.log(this.state.email);
        event.preventDefault()
       };
   
@@ -65,25 +64,55 @@ class RegisterDetails extends Component {
     render() {
         return(
           <Card className="card-register ml-auto mr-auto">
-          <h3 className="title mx-auto">Register</h3>
+          <h3 className="title mx-auto">Welcome</h3>
+          <div className="social-line text-center">
+            <Button
+              className="btn-neutral btn-just-icon mr-1"
+              color="facebook"
+              href="#pablo"
+              onClick={(e) => e.preventDefault()}
+            >
+              <i className="fa fa-facebook-square" />
+            </Button>
+            <Button
+              className="btn-neutral btn-just-icon mr-1"
+              color="google"
+              href="#pablo"
+              onClick={(e) => e.preventDefault()}
+            >
+              <i className="fa fa-google-plus" />
+            </Button>
+            <Button
+              className="btn-neutral btn-just-icon"
+              color="twitter"
+              href="#pablo"
+              onClick={(e) => e.preventDefault()}
+            >
+              <i className="fa fa-twitter" />
+            </Button>
+          </div>
           <Form className="register-form" onSubmit={this.register}>
-            <label>Username</label>
-            <Input placeholder="Username" type="text" required min="3" value={this.state.userName} onChange={(e) => this.setState({ ...this.state, userName: e.target.value })}/>
-            <label>First name</label>
-            <Input placeholder="First name" type="text" required value={this.state.firstName} onChange={(e) => this.setState({ ...this.state, firstName: e.target.value })}/>
-            <label>Last name</label>
-            <Input placeholder="Last name" type="text" required value={this.state.lastName} onChange={(e) => this.setState({ ...this.state, lastName: e.target.value })}/>
             <label>Email</label>
             <Input placeholder="Email" type="email" required value={this.state.email} onChange={(e) => this.setState({ ...this.state, email: e.target.value })}/>
             <label>Password</label>
             <Input placeholder="Password" type="password" required value={this.state.password} onChange={(e) => this.setState({ ...this.state, password: e.target.value })}/>
-            <Button block className="btn-round" color="danger">
-              Register
+            <Button block className="btn-round" color="danger" href="/index">
+              Log In
             </Button>
-          </Form>          
+          </Form>
+          <div className="forgot">
+            <Button
+              className="btn-link"
+              color="danger"
+              href="#pablo"
+              onClick={(e) => e.preventDefault()}
+            >
+              Forgot password?
+            </Button>
+          </div>
         </Card>
         )
     }
 }
 
-export default RegisterDetails
+export default LoginDetails

@@ -93,25 +93,37 @@ class UserDetails extends Component {
                   <h4 className="title">
                   {this.state.userName} <br />
                   </h4>
-                                  
-                    <div className="form-group">
-                      <h6 className="description">
-                        <small>Firstname</small><br />
-                        <input className="form-control" type="text" value={this.state.firstName} onChange={(e) => this.setState({ ...this.state, firstName: e.target.value })} /> 
-                      </h6>
-                      <h6 className="description">
-                        <small>Lastname</small><br />
-                        <input className="form-control" type="text" value={this.state.lastName} onChange={(e) => this.setState({ ...this.state, lastName: e.target.value })} /> 
-                      </h6>
+                  <div className="totti">
+                    <Row >
+                      <Col className="col-sm-3" style={{marginLeft: "25%"}}>              
+                        <div className="form-group">
+                          <h6 className="description">
+                            <small>Firstname</small><br />
+                            <input className="form-control" type="text" value={this.state.firstName} onChange={(e) => this.setState({ ...this.state, firstName: e.target.value })} /> 
+                          </h6>
+                        </div>
+                      </Col>
+                      <Col className="col-sm-3">
+                        <div className="form-group">
+                          <h6 className="description">
+                            <small>Lastname</small><br />
+                            <input className="form-control" type="text" value={this.state.lastName} onChange={(e) => this.setState({ ...this.state, lastName: e.target.value })} /> 
+                          </h6>
+                        </div>
+                      </Col>
+                    </Row>
+                    </div>
+                      <div className="form-group">
                       <h6 className="description">
                         <small>Email</small><br />
                         {this.state.email}
                       </h6>
-                    <div/>                  
+                      </div>
+                    <div>                  
                   </div>
                 </div>
               </div>
-              <Row>
+            <Row>
               <Col className="ml-auto mr-auto text-center" md="6">
                 
                 <br />
