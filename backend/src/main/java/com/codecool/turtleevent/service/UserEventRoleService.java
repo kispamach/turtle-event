@@ -38,8 +38,8 @@ public class UserEventRoleService {
         this.userService = userService;
     }
 
-    public List<UserEventRoleDTO> getAllByEvent(IdDTO eventId) {
-        Event event = eventService.findEventById(eventId.getId());
+    public List<UserEventRoleDTO> getAllByEvent(Long eventId) {
+        Event event = eventService.findEventById(eventId);
         List<UserEventRole> userEventRoles = userEventRoleRepository.findAllByEvent(event);
         return convertToDTO(userEventRoles);
 

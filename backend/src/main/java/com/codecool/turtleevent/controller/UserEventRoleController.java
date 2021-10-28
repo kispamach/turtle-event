@@ -26,9 +26,9 @@ public class UserEventRoleController {
         return userEventRoleService.getAll();
     }
 
-    @GetMapping("by-event")
-    public List<UserEventRoleDTO> userEventRoleByEvent(@RequestBody IdDTO eventId) {
-        return userEventRoleService.getAllByEvent(eventId);
+    @GetMapping("by-event/{id}")
+    public List<UserEventRoleDTO> userEventRoleByEvent(@PathVariable Long id) {
+        return userEventRoleService.getAllByEvent(id);
     }
 
     @GetMapping("by-user")

@@ -22,8 +22,10 @@ import React from "react";
 import { Button, Card, CardBody, CardTitle, CardText, Form, Input, Container, Row, Col } from "reactstrap";
 
 // core components
-import LogOutNavbar from "components/Navbars/LogOutNavbar.js";
-import LoginDetails from "components/Data/LoginDetails";
+import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
+import EventParticipants from "components/Data/EventPage/EventParticipants";
+import EventData from "components/Data/EventPage/EventData";
+import Messages from "components/Data/EventPage/Messages";
 
 function EventPage() {
   document.documentElement.classList.remove("nav-open");
@@ -36,7 +38,7 @@ function EventPage() {
 
   return (
     <>
-      <LogOutNavbar />
+      <ExamplesNavbar />
       <div
         className="page-header"
         style={{
@@ -48,31 +50,19 @@ function EventPage() {
         <Container>
           <Row>
             <Col className="ml-auto mr-auto" lg="4">
-                <Card style={{width: '22rem', height: "30.6rem"}} className="text-center" color="warning">
-                  <CardBody>
-                      <CardTitle>Special title treatment</CardTitle>
-                      <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                      <Button href="/#" color="primary">Go somewhere</Button>
-                  </CardBody>
-              </Card>
+                <EventData eventId="1"/>
             </Col>
             <Col className="ml-auto mr-auto" lg="8">
               <Row>
               <Col className="ml-auto mr-auto" lg="12">
-                <Card style={{width: '44rem'}} className="text-center" color="danger"> 
-                    <CardBody>
-                        <CardTitle>Special title treatment</CardTitle>
-                        <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                        <Button href="/#" color="primary">Go somewhere</Button>
-                    </CardBody>
-                </Card>
+                <Messages eventId="1"/>
                 </Col>
               </Row>
               <Row>
                 <Col>
                   <Card style={{width: '23rem', height: "20rem"}} className="text-center" color="info">
                       <CardBody>
-                          <CardTitle>Special title treatment</CardTitle>
+                          <CardTitle>To Bring</CardTitle>
                           <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
                           <Button href="/#" color="danger">Go somewhere</Button>
                       </CardBody>
@@ -81,7 +71,7 @@ function EventPage() {
                 <Col>
                   <Card style={{width: '19rem', height: "20rem"}} className="text-center">
                       <CardBody>
-                          <CardTitle>Special title treatment</CardTitle>
+                          <CardTitle>To Do</CardTitle>
                           <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
                           <Button href="/#" color="primary">Go somewhere</Button>
                       </CardBody>
@@ -92,13 +82,7 @@ function EventPage() {
           </Row>
           <Row>
             <Col className="ml-auto mr-auto" lg="12">
-            <Card style={{width: '67.6rem'}} className="text-center" color="primary">
-              <CardBody>
-                  <CardTitle>Special title treatment</CardTitle>
-                  <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                  <Button href="/#" color="warning">Go somewhere</Button>
-              </CardBody>
-            </Card>
+              <EventParticipants eventId="1"/>            
             </Col>
           </Row>
         </Container>

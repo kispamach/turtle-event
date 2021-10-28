@@ -1,20 +1,8 @@
 import React, {Component} from "react";
+import { useHistory } from "react-router-dom";
 
 // reactstrap components
-import {Card, CardImg, CardBody, CardTitle, CardText,
-    Button,
-    Label,
-    FormGroup,
-    Input,
-    NavItem,
-    NavLink,
-    Nav,
-    TabContent,
-    TabPane,
-    Container,
-    Row,
-    Col,
-  } from "reactstrap";
+import {Card, CardImg, CardBody, CardTitle, CardText, Button, Col} from "reactstrap";
 
 class EventListDetails extends Component {
 
@@ -23,6 +11,7 @@ class EventListDetails extends Component {
   }
 
     state = {
+        id: null,
         name: null,
         description: null,
         location: null,
@@ -37,6 +26,7 @@ class EventListDetails extends Component {
             .then(res => res.json())
             .then(json => {
                 this.setState({
+                    id: json.id,
                     name: json.name,
                     description: json.description,
                     location: json.location,
@@ -49,6 +39,14 @@ class EventListDetails extends Component {
     componentDidMount() {
         this.getEventById()
     } 
+
+    eventLink() {
+        // let id = this.state.id
+        // let path = "/event-page"
+        // let history = useHistory()
+        // history.push(path)
+        window.location.href="/event-page"
+    }
 
 
     render() {
@@ -63,7 +61,7 @@ class EventListDetails extends Component {
                         <CardText>{this.props.event.fromDate}</CardText> :
                         <CardText>{this.props.event.fromDate} - {this.props.event.toDate}</CardText>}
                         <CardText>{this.props.event.location}</CardText>
-                        <Button color="primary">Show details</Button>
+                        <Button color="primary" onClick={this.eventLink}>Show details</Button>
                     </CardBody>
                 </Card>
             </Col>
