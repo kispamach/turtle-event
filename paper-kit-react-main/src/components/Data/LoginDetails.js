@@ -55,10 +55,13 @@ class LoginDetails extends Component {
        .then(response => response.json())
        .then(data => console.log(data)) 
        .catch(err => console.log(err))
-      console.log("password: " + this.state.password);
-      console.log(this.state.email);
-       event.preventDefault()
+      event.preventDefault()
       };
+
+    logIn(event) {
+      window.location.href="/index";
+      event.preventDefault()
+    }
   
 
     render() {
@@ -95,8 +98,8 @@ class LoginDetails extends Component {
             <label>Email</label>
             <Input placeholder="Email" type="email" required value={this.state.email} onChange={(e) => this.setState({ ...this.state, email: e.target.value })}/>
             <label>Password</label>
-            <Input placeholder="Password" type="password" required value={this.state.password} onChange={(e) => this.setState({ ...this.state, password: e.target.value })}/>
-            <Button block className="btn-round" color="danger" href="/index">
+            <Input placeholder="Password" type="password" minLength="3" required value={this.state.password} onChange={(e) => this.setState({ ...this.state, password: e.target.value })}/>
+            <Button block className="btn-round" color="danger" onClick={this.logIn}>
               Log In
             </Button>
           </Form>

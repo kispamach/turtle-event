@@ -32,6 +32,8 @@ import ProfilePage from "views/examples/ProfilePage.js";
 import RegisterPage from "views/examples/RegisterPage.js";
 import LoginPage from "views/examples/LoginPage.js"
 import EventPage from "views/examples/EventPage.js"
+import { isPropertyAccessChain } from "typescript";
+
 
 
 ReactDOM.render(

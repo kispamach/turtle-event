@@ -43,7 +43,7 @@ import {
   Col,
 } from "reactstrap";
 
-function Index() {
+function Index({eventId}) {
   document.documentElement.classList.remove("nav-open");
   React.useEffect(() => {
     document.body.classList.add("index");
@@ -57,7 +57,7 @@ function Index() {
       <IndexHeader />
       <div className="main">
         <Container >
-          <EventList />
+          <EventList eventId/>
         </Container>
       <DemoFooter />
       </div>

@@ -163,7 +163,7 @@ class UserDetails extends Component {
 
                     <br />
                     <Button className="btn-round" color="default" outline onClick={() => this.setState({ ...this.state, isEdit: true })}>
-                      <i className="fa fa-cog" /> Settings
+                      <i className="fa fa-cog" /> Modify
                     </Button>
                   </Col>
                 </Row></>

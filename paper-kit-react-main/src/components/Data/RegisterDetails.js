@@ -68,15 +68,15 @@ class RegisterDetails extends Component {
           <h3 className="title mx-auto">Register</h3>
           <Form className="register-form" onSubmit={this.register}>
             <label>Username</label>
-            <Input placeholder="Username" type="text" required min="3" value={this.state.userName} onChange={(e) => this.setState({ ...this.state, userName: e.target.value })}/>
+            <Input placeholder="Username" type="text" required minLength="3" value={this.state.userName} onChange={(e) => this.setState({ ...this.state, userName: e.target.value })}/>
             <label>First name</label>
-            <Input placeholder="First name" type="text" required value={this.state.firstName} onChange={(e) => this.setState({ ...this.state, firstName: e.target.value })}/>
+            <Input placeholder="First name" type="text" required minLength="3" value={this.state.firstName} onChange={(e) => this.setState({ ...this.state, firstName: e.target.value })}/>
             <label>Last name</label>
-            <Input placeholder="Last name" type="text" required value={this.state.lastName} onChange={(e) => this.setState({ ...this.state, lastName: e.target.value })}/>
+            <Input placeholder="Last name" type="text" required minLength="3" value={this.state.lastName} onChange={(e) => this.setState({ ...this.state, lastName: e.target.value })}/>
             <label>Email</label>
             <Input placeholder="Email" type="email" required value={this.state.email} onChange={(e) => this.setState({ ...this.state, email: e.target.value })}/>
             <label>Password</label>
-            <Input placeholder="Password" type="password" required value={this.state.password} onChange={(e) => this.setState({ ...this.state, password: e.target.value })}/>
+            <Input placeholder="Password" type="password" required minLength="3" value={this.state.password} onChange={(e) => this.setState({ ...this.state, password: e.target.value })}/>
             <Button block className="btn-round" color="danger">
               Register
             </Button>
