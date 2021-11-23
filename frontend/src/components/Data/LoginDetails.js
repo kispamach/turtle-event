@@ -1,40 +1,89 @@
 import React, {Component} from "react";
+import Form from "react-validation/build/form";
+import Input from "react-validation/build/input";
+import CheckButton from "react-validation/build/button";
+
+import AuthService from "services/AuthService";
 
 // reactstrap components
-import { Button, Card, Form, Input, Container, Row, Col } from "reactstrap";
+import { Button, Card, Container, Row, Col } from "reactstrap";
 
+
+const required = value => {
+  if (!value) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        This field is required!
+      </div>
+    );
+  }
+};
 
 class LoginDetails extends Component {
 
   constructor(props) {
     super(props);
     this.register = this.register.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+    this.onChangeUsername = this.onChangeUsername.bind(this);
+    this.onChangePassword = this.onChangePassword.bind(this);
   }
 
     state = {
-        userName: null,
-        firstName: null,
-        lastName: null,
-        email:null,
-        password: null
+        username: null,
+        password: null,
+        loading: false,
+        message: ""
     }
 
-    getUserById() {
-      let url = '/user/profile/' + this.props.userId
-        fetch(url)
-            .then(res => res.json())
-            .then(json => {
-                this.setState({
-                    userName: json.userName,
-                    firstName: json.firstName,
-                    lastName: json.lastName,
-                    email:json.email})
-                });
+    onChangeUsername(e) {
+      this.setState({
+        username: e.target.value
+      });
+    }
+  
+    onChangePassword(e) {
+      this.setState({
+        password: e.target.value
+      });
     }
 
-    componentDidMount() {
-        this.getUserById()
-    } 
+    handleLogin(e) {
+      e.preventDefault();
+  
+      this.setState({
+        message: "",
+        loading: true
+      });
+  
+      this.form.validateAll();
+  
+      if (this.checkBtn.context._errors.length === 0) {
+        AuthService.login(this.state.username, this.state.password).then(
+          () => {
+            this.props.history.push("/profile-page");
+            window.location.reload();
+          },
+          error => {
+            const resMessage =
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString();
+  
+            this.setState({
+              loading: false,
+              message: resMessage
+            });
+          }
+        );
+      } else {
+        this.setState({
+          loading: false
+        });
+      }
+    }
 
     register(event) {
       
@@ -94,14 +143,53 @@ class LoginDetails extends Component {
               <i className="fa fa-twitter" />
             </Button>
           </div>
-          <Form className="register-form" onSubmit={this.register}>
-            <label>Email</label>
-            <Input placeholder="Email" type="email" required value={this.state.email} onChange={(e) => this.setState({ ...this.state, email: e.target.value })}/>
+          <Form className="register-form" onSubmit={this.handleLogin} ref={c =>{this.form = c;}}>
+            <label>Username</label>
+            <Input 
+              className="form-control"
+              placeholder="Username" 
+              name="username" 
+              type="text" 
+              value={this.state.username} 
+              onChange={this.onChangeUsername} 
+              validations={[required]} 
+            />
             <label>Password</label>
-            <Input placeholder="Password" type="password" minLength="3" required value={this.state.password} onChange={(e) => this.setState({ ...this.state, password: e.target.value })}/>
-            <Button block className="btn-round" color="danger" onClick={this.logIn}>
+            <Input 
+              className="form-control"
+              placeholder="Password" 
+              name="password" 
+              type="password" 
+              value={this.state.password} 
+              onChange={this.onChangePassword} 
+              validations={[required]} 
+            />
+            {/* <Button block className="btn-round" color="danger" disabled={this.state.loading} onClick={this.logIn}>
               Log In
-            </Button>
+            </Button> */}
+            <button
+                className="btn btn-danger btn-block"
+                disabled={this.state.loading}
+              >
+                {this.state.loading && (
+                  <span className="spinner-border spinner-border-sm"></span>
+                )}
+                <span>Login</span>
+              </button>
+
+              {this.state.message && (
+              <div className="form-group">
+                <div className="alert alert-danger" role="alert">
+                  {this.state.message}
+                </div>
+              </div>)}
+              <CheckButton
+                style={{ display: "none" }}
+                ref={c => {
+                  this.checkBtn = c;
+                }}
+              />
+
           </Form>
           <div className="forgot">
             <Button
