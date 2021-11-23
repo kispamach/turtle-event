@@ -17,6 +17,7 @@
 
 */
 import React from "react";
+import { Link } from "react-router-dom";
 // nodejs library that concatenates strings
 import classnames from "classnames";
 // reactstrap components
@@ -46,7 +47,7 @@ function IndexNavbar() {
         document.documentElement.scrollTop > 299 ||
         document.body.scrollTop > 299
       ) {
-        setNavbarColor("");
+        setNavbarColor("bg-primary");
       } else if (
         document.documentElement.scrollTop < 300 ||
         document.body.scrollTop < 300
@@ -71,7 +72,7 @@ function IndexNavbar() {
             target="_blank"
             title="Coded by Creative Tim"
           >
-            Paper Kit React
+            Turtle Event
           </NavbarBrand>
           <button
             aria-expanded={navbarCollapse}
@@ -91,6 +92,35 @@ function IndexNavbar() {
           isOpen={navbarCollapse}
         >
           <Nav navbar>
+          <NavItem>
+              <NavLink to="/profile-page" tag={Link}>
+                <i className="nc-icon nc-badge" /> Profile
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
+                href="/event-page"
+                target="_blank"
+              >
+                <i className="nc-icon nc-world-2" /> My Events
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
+                href="https://demos.creative-tim.com/paper-kit-react/#/documentation?ref=pkr-index-navbar"
+                target="_blank"
+              >
+                <i className="nc-icon nc-bus-front-12" /> New Event
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
+                href="/register-page"
+                target="_blank"
+              >
+                <i className="nc-icon nc-single-02" /> Register
+              </NavLink>
+            </NavItem>
             <NavItem>
               <NavLink
                 data-placement="bottom"
@@ -123,26 +153,8 @@ function IndexNavbar() {
                 <i className="fa fa-instagram" />
                 <p className="d-lg-none">Instagram</p>
               </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                data-placement="bottom"
-                href="https://www.github.com/CreativeTimOfficial/paper-kit-react?ref=creativetim"
-                target="_blank"
-                title="Star on GitHub"
-              >
-                <i className="fa fa-github" />
-                <p className="d-lg-none">GitHub</p>
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                href="https://demos.creative-tim.com/paper-kit-react/#/documentation?ref=pkr-index-navbar"
-                target="_blank"
-              >
-                <i className="nc-icon nc-book-bookmark" /> Documentation
-              </NavLink>
-            </NavItem>
+            </NavItem>            
+            
             <NavItem>
               <Button
                 className="btn-round"
@@ -150,7 +162,7 @@ function IndexNavbar() {
                 href="https://www.creative-tim.com/product/paper-kit-pro-react?ref=pkr-index-navbar"
                 target="_blank"
               >
-                <i className="nc-icon nc-spaceship"></i> Upgrade to Pro
+                <i className="nc-icon nc-button-power"></i> Log out
               </Button>
             </NavItem>
           </Nav>
