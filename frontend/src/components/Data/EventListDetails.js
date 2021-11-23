@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 
 // reactstrap components
 import {Card, CardImg, CardBody, CardTitle, CardText, Button, Col} from "reactstrap";
+import EventPage from "views/examples/EventPage";
 
 class EventListDetails extends Component {
 
@@ -46,6 +47,7 @@ class EventListDetails extends Component {
         // let history = useHistory()
         // history.push(path)
         window.location.href="/event-page"
+        // <EventPage id={this.props.event.id} />
     }
 
 

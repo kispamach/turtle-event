@@ -1,9 +1,11 @@
 package com.codecool.turtleevent.model;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -15,7 +17,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="user_name")
+    @Column(name="user_name", unique = true)
     private String userName;
 
     @Column(name="first_name")
@@ -24,13 +26,17 @@ public class User {
     @Column(name="last_name")
     private String lastName;
 
+    @Column (unique = true, nullable = false)
     private String email;
 
+    @Column (nullable = false)
     private String password;
 
+    private String avatar;
 
     @ManyToMany
-    @JoinTable(name="friends",
+    @JoinTable(
+            name="friends",
             joinColumns=@JoinColumn(name="user_id"),
             inverseJoinColumns=@JoinColumn(name="friend_id")
     )
@@ -38,12 +44,19 @@ public class User {
 
 
     @ManyToMany
-    @JoinTable(name="friends",
+    @JoinTable(
+            name="friends",
             joinColumns=@JoinColumn(name="friend_id"),
             inverseJoinColumns=@JoinColumn(name="user_id")
     )
     private List<User> friendOf;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "users_roles",
+        joinColumns = {@JoinColumn(name = "user_id")},
+        inverseJoinColumns = {@JoinColumn(name = "role_id")})
+    private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
     @JsonManagedReference(value="user-eventroles")
@@ -63,8 +76,8 @@ public class User {
     }
 
     public User(String userName, String firstName, String lastName, String email,
-                String password, List<User> friends, List<User> friendOf,
-                Set<UserEventRole> eventRoles, Set<Message> messages,
+                String password, String avatar, List<User> friends, List<User> friendOf,
+                Set<Role> roles, Set<UserEventRole> eventRoles, Set<Message> messages,
                 LocalDateTime registered) {
         this.userName = userName;
         this.firstName = firstName;
@@ -76,6 +89,14 @@ public class User {
         this.eventRoles = eventRoles;
         this.messages = messages;
         this.registered = registered;
+    }
+
+    public User(String userName, String firstName, String lastName, String email, String password) {
+        this.userName = userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
     }
 
     public Long getId() {
@@ -126,6 +147,14 @@ public class User {
         this.password = password;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     public List<User> getFriends() {
         return friends;
     }
@@ -140,6 +169,14 @@ public class User {
 
     public void setFriendOf(List<User> friendOf) {
         this.friendOf = friendOf;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public Set<UserEventRole> getEventRoles() {

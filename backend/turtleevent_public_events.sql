@@ -1,0 +1,7 @@
+insert into public.events (id, create_time, description, from_date, location, name, to_date)
+values  (5, '2021-10-26 14:58:45.374424', 'Karácsonyi ünnep!', '2021-10-29 18:00:00.000000', 'Miskolc, Rossita Pizzéria', 'Karácsonyi Party', null),
+        (6, '2021-10-28 10:57:54.646216', 'Gyere és szurkoljunk együtt szeretett csapatunknak a Fradi ellen!', '2021-11-13 18:00:00.000000', 'Miskolc, Diósgyőr', 'DVTK közös szurkolás', null),
+        (7, '2021-10-28 10:59:17.028240', 'Szervezzünk egy csapatot, szükségünk van 15 főre', '2021-11-03 13:00:00.000000', 'Bükkszentlászló', 'Paintball', null),
+        (8, '2021-10-28 11:01:20.101892', 'Köszöntsük együtt ezt az áldott, jóembert.', '2021-11-22 16:00:00.000000', 'Miskolc, Bitang Joe', 'Születésnap buli Martinnak!', '2021-11-23 02:00:00.000000'),
+        (2, '2021-10-21 09:46:52.617703', 'Buli van!!!!', '2021-12-16 18:00:00.000000', 'Sajókeresztúr József Attila utca 31.', 'Szalonnasütés', '2021-12-16 22:00:00.000000'),
+        (1, '2021-10-21 09:45:52.904597', 'Csatlakozz te is az idei utolsó Lan partyhoz! Nem fogod megbánni (lesznek hostess lányok is)! Jelenlegi játékaink: Warzone, PUBG, Starcraft', '2021-10-30 18:00:00.000000', 'Miskolc Aréna Club', 'LAN party', '2021-10-31 09:00:00.000000');

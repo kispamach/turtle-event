@@ -1,14 +1,10 @@
 package com.codecool.turtleevent.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,6 +17,7 @@ public class Event {
     private String name;
     private String description;
     private String location;
+    private String image;
     @Column(name="from_date")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime fromDate;
@@ -80,6 +77,14 @@ public class Event {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public LocalDateTime getFromDate() {

@@ -26,6 +26,7 @@ import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import EventParticipants from "components/Data/EventPage/EventParticipants";
 import EventData from "components/Data/EventPage/EventData";
 import Messages from "components/Data/EventPage/Messages";
+import { isPropertySignature } from "typescript";
 
 function EventPage() {
   document.documentElement.classList.remove("nav-open");
