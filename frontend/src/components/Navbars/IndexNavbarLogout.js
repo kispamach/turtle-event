@@ -20,8 +20,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 // nodejs library that concatenates strings
 import classnames from "classnames";
-
-import AuthService from "services/AuthService";
 // reactstrap components
 import {
   Button,
@@ -34,7 +32,7 @@ import {
   Container,
 } from "reactstrap";
 
-function IndexNavbar() {
+function IndexNavbarLogout() {
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
 
@@ -42,10 +40,6 @@ function IndexNavbar() {
     setNavbarCollapse(!navbarCollapse);
     document.documentElement.classList.toggle("nav-open");
   };
-
-  const logOut = () => {
-    AuthService.logout()
-  }
 
   React.useEffect(() => {
     const updateNavbarColor = () => {
@@ -97,26 +91,13 @@ function IndexNavbar() {
           navbar
           isOpen={navbarCollapse}
         >
-          <Nav navbar>
-          <NavItem>
-              <NavLink to="/profile-page" tag={Link}>
-                <i className="nc-icon nc-badge" /> Profile
-              </NavLink>
-            </NavItem>
+          <Nav navbar>         
             <NavItem>
               <NavLink
-                href="/event-page"
+                href="/register-page"
                 target="_blank"
               >
-                <i className="nc-icon nc-world-2" /> My Events
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                href="https://demos.creative-tim.com/paper-kit-react/#/documentation?ref=pkr-index-navbar"
-                target="_blank"
-              >
-                <i className="nc-icon nc-bus-front-12" /> New Event
+                <i className="nc-icon nc-single-02" /> Register
               </NavLink>
             </NavItem>
             <NavItem>
@@ -155,13 +136,12 @@ function IndexNavbar() {
             
             <NavItem>
               <Button
-                onClick={logOut}
                 className="btn-round"
                 color="danger"
-                href="/index"
+                href="/login-page"
                 target="_blank"
               >
-                <i className="nc-icon nc-button-power"></i> Log out
+                <i className="nc-icon nc-button-power"></i> Log in
               </Button>
             </NavItem>
           </Nav>
@@ -171,4 +151,4 @@ function IndexNavbar() {
   );
 }
 
-export default IndexNavbar;
+export default IndexNavbarLogout;

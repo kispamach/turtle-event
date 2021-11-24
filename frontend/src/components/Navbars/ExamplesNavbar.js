@@ -21,6 +21,8 @@ import { Link } from "react-router-dom";
 // nodejs library that concatenates strings
 import classnames from "classnames";
 
+import AuthService from "services/AuthService";
+
 // reactstrap components
 import {
   Collapse,
@@ -41,6 +43,10 @@ function ExamplesNavbar() {
     setNavbarCollapse(!navbarCollapse);
     document.documentElement.classList.toggle("nav-open");
   };
+
+  const logOut = () => {
+    AuthService.logout()
+  }
 
   React.useEffect(() => {
     const updateNavbarColor = () => {
@@ -154,6 +160,7 @@ function ExamplesNavbar() {
             </NavItem>
             <NavItem>
               <Button
+                onClick={logOut}
                 className="btn-round"
                 color="danger"
                 href="/index"

@@ -22,7 +22,7 @@ import React from "react";
 import { Button, Card, Form, Input, Container, Row, Col } from "reactstrap";
 
 // core components
-import LogOutNavbar from "components/Navbars/LogOutNavbar.js";
+import LogOutNavbarLogin from "components/Navbars/LogOutNavbarLogin";
 import LoginDetails from "components/Data/LoginDetails";
 
 function LoginPage() {
@@ -36,7 +36,7 @@ function LoginPage() {
 
   return (
     <>
-      <LogOutNavbar />
+      <LogOutNavbarLogin />
       <div
         className="page-header"
         style={{

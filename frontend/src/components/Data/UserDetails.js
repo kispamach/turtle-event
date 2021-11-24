@@ -1,5 +1,8 @@
 import React, {Component} from "react";
 
+import authHeader from "services/auth-header";
+import authHeaderWithContent from "services/auth-header -with-content";
+
 // reactstrap components
 import {
     Button,
@@ -33,7 +36,7 @@ class UserDetails extends Component {
 
     getUserById() {
       let url = '/user/profile/' + this.props.userId
-        fetch(url)
+        fetch(url, { headers: authHeader() })
             .then(res => res.json())
             .then(json => {
                 this.setState({
@@ -49,7 +52,7 @@ class UserDetails extends Component {
     } 
 
     editing(event) {
-      
+      const user = JSON.parse(localStorage.getItem('user'));
       const url = "/user/update/"
       let userData = {
         id: this.props.userId,
@@ -58,13 +61,12 @@ class UserDetails extends Component {
       }
       const putMethod = {
         method: 'PUT', 
-        headers: {
-         'Content-type': 'application/json; charset=UTF-8'
-        },
+        headers: authHeaderWithContent()        
+        ,
         body: JSON.stringify(userData) 
        }
        
-       fetch(url, putMethod)
+       fetch(url, putMethod, )
        .then(response => response.json())
        .then(data => console.log(data)) 
        .catch(err => console.log(err)) 

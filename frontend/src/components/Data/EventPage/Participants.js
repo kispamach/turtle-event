@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 
+import authHeader from "services/auth-header";
+
 // reactstrap components
 import {
     Button,
@@ -24,7 +26,7 @@ class Participants extends Component {
     getUserById(id) {
         let url = '/user/profile/' + id
         
-        fetch(url)
+        fetch(url, { headers: authHeader() })
             .then(res => res.json())
             .then(json => {
                 this.setState({
@@ -41,7 +43,7 @@ class Participants extends Component {
 
     getParticipants() {
         let url = '/user-event-role/by-event/' + this.props.eventId
-        fetch(url)
+        fetch(url, { headers: authHeader() })
             .then(res => res.json())
             .then(json => {
                 console.log(json);

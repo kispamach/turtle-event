@@ -27,6 +27,8 @@ import DemoFooter from "components/Footers/DemoFooter.js";
 
 import EventList from "components/Data/EventList";
 
+import AuthService from "services/AuthService";
+
 // reactstrap components
 import {
   Button,
@@ -42,6 +44,7 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import IndexNavbarLogout from "components/Navbars/IndexNavbarLogout";
 
 function Index({eventId}) {
   document.documentElement.classList.remove("nav-open");
@@ -53,7 +56,10 @@ function Index({eventId}) {
   });
   return (
     <>
-      <IndexNavbar />
+      {AuthService.getCurrentUser() 
+      ? <IndexNavbar />
+      : <IndexNavbarLogout />
+    }
       <IndexHeader />
       <div className="main">
         <Container >

@@ -23,7 +23,7 @@ import { Button, Card, Form, Input, Container, Row, Col } from "reactstrap";
 
 // core components
 import RegisterDetails from "components/Data/RegisterDetails";
-import LogOutNavbar from "components/Navbars/LogOutNavbar";
+import LogOutNavbarRegisterPage from "components/Navbars/LogOutNavbarRegisterPage";
 
 function RegisterPage() {
   document.documentElement.classList.remove("nav-open");
@@ -36,7 +36,7 @@ function RegisterPage() {
 
   return (
     <>
-      <LogOutNavbar />
+      <LogOutNavbarRegisterPage />
       <div
         className="page-header"
         style={{

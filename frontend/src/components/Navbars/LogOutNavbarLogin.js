@@ -33,7 +33,7 @@ import {
   Button,
 } from "reactstrap";
 
-function LogOutNavbar() {
+function LogOutNavbarLogin() {
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
 
@@ -146,7 +146,7 @@ function LogOutNavbar() {
                 href="/login-page"
                 target="_blank"
               >
-                <i className="nc-icon nc-button-power"></i>   Log In
+                <i className="nc-icon nc-button-power"></i>   Sign up
               </Button>
             </NavItem>
           </Nav>
@@ -156,4 +156,4 @@ function LogOutNavbar() {
   );
 }
 
-export default LogOutNavbar;
+export default LogOutNavbarLogin;

@@ -18,6 +18,8 @@
 */
 import React from "react";
 
+import AuthService from "services/AuthService";
+
 // reactstrap components
 import {
   Button,
@@ -51,6 +53,8 @@ function ProfilePage() {
     }
   };
 
+  const currentUser = AuthService.getCurrentUser()  
+
   document.documentElement.classList.remove("nav-open");
   React.useEffect(() => {
     document.body.classList.add("landing-page");
@@ -64,7 +68,7 @@ function ProfilePage() {
       <ProfilePageHeader />
       <div className="section profile-content">
         <Container>
-        <UserDetails userId="5"/>
+        <UserDetails userId={currentUser.id}/>
           <br />
           <div className="nav-tabs-navigation">
             <div className="nav-tabs-wrapper">
@@ -98,7 +102,7 @@ function ProfilePage() {
               <Row>
                 <Col className="ml-auto mr-auto" md="6">
                   <ul className="list-unstyled follows">                    
-                      <Followers userId="5"/>
+                      <Followers userId={currentUser.id}/>
                   </ul>
                 </Col>
               </Row>
@@ -107,7 +111,7 @@ function ProfilePage() {
               <Row>
                 <Col className="ml-auto mr-auto" md="6">
                   <ul className="list-unstyled follows">  
-                    <Following userId="5"/>
+                    <Following userId={currentUser.id}/>
                     {/* <h3 className="text-muted">Not following anyone yet :(</h3> */}
                   </ul>                
                 </Col>

@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import Participants from "./Participants";
 
+import authHeader from "services/auth-header";
+
 // reactstrap components
 import {Card, CardImg, CardHeader,CardBody, CardTitle, CardText,
     Button,
@@ -34,7 +36,7 @@ class EventParticipants extends Component {
 
     getEventById() {
       let url = '/event/' + this.props.eventId
-        fetch(url)
+        fetch(url, { headers: authHeader() })
             .then(res => res.json())
             .then(json => {
                 this.setState({

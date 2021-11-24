@@ -61,8 +61,9 @@ class LoginDetails extends Component {
       if (this.checkBtn.context._errors.length === 0) {
         AuthService.login(this.state.username, this.state.password).then(
           () => {
-            this.props.history.push("/index");
-            window.location.reload();
+            window.location.href="/index";
+            // this.props.history.push("/index");
+            // window.location.reload();
           },
           error => {
             const resMessage =

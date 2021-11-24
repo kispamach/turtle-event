@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import FollowerDetails from "./FollowerDetails";
 
+import authHeader from "services/auth-header";
+
 // reactstrap components
 import {
     Button,
@@ -25,7 +27,7 @@ class Following extends Component {
     getUserById(userId) {
         let url = '/user/profile/' + userId
         
-        fetch(url)
+        fetch(url, { headers: authHeader() })
             .then(res => res.json())
             .then(json => {
                 this.setState({
@@ -43,7 +45,7 @@ class Following extends Component {
 
     getFollowing() {
         let url = '/user/profile/' + this.props.userId
-        fetch(url)
+        fetch(url, { headers: authHeader() })
             .then(res => res.json())
             .then(json => {
                 json.friendIds.map( (friendOf => this.getUserById(friendOf)))

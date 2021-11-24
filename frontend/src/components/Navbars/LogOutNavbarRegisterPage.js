@@ -21,10 +21,8 @@ import { Link } from "react-router-dom";
 // nodejs library that concatenates strings
 import classnames from "classnames";
 
-import AuthService from "services/AuthService";
 // reactstrap components
 import {
-  Button,
   Collapse,
   NavbarBrand,
   Navbar,
@@ -32,9 +30,10 @@ import {
   NavLink,
   Nav,
   Container,
+  Button,
 } from "reactstrap";
 
-function IndexNavbar() {
+function LogOutNavbarRegisterPage() {
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
 
@@ -43,20 +42,16 @@ function IndexNavbar() {
     document.documentElement.classList.toggle("nav-open");
   };
 
-  const logOut = () => {
-    AuthService.logout()
-  }
-
   React.useEffect(() => {
     const updateNavbarColor = () => {
       if (
-        document.documentElement.scrollTop > 299 ||
-        document.body.scrollTop > 299
+        document.documentElement.scrollTop > 99 ||
+        document.body.scrollTop > 99
       ) {
         setNavbarColor("bg-primary");
       } else if (
-        document.documentElement.scrollTop < 300 ||
-        document.body.scrollTop < 300
+        document.documentElement.scrollTop < 100 ||
+        document.body.scrollTop < 100
       ) {
         setNavbarColor("navbar-transparent");
       }
@@ -69,14 +64,19 @@ function IndexNavbar() {
     };
   });
   return (
-    <Navbar className={classnames("fixed-top", navbarColor)} expand="lg">
+    <Navbar
+      className={classnames("fixed-top", navbarColor)}
+      color-on-scroll="300"
+      expand="lg"
+    >
       <Container>
         <div className="navbar-translate">
           <NavbarBrand
             data-placement="bottom"
-            href="/index"
+            to="/index"
             target="_blank"
-            title="Coded by Creative Tim"
+            title="Turtle Event Home page"
+            tag={Link}
           >
             Turtle Event
           </NavbarBrand>
@@ -97,32 +97,11 @@ function IndexNavbar() {
           navbar
           isOpen={navbarCollapse}
         >
-          <Nav navbar>
-          <NavItem>
-              <NavLink to="/profile-page" tag={Link}>
-                <i className="nc-icon nc-badge" /> Profile
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                href="/event-page"
-                target="_blank"
-              >
-                <i className="nc-icon nc-world-2" /> My Events
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                href="https://demos.creative-tim.com/paper-kit-react/#/documentation?ref=pkr-index-navbar"
-                target="_blank"
-              >
-                <i className="nc-icon nc-bus-front-12" /> New Event
-              </NavLink>
-            </NavItem>
+          <Nav navbar> 
             <NavItem>
               <NavLink
                 data-placement="bottom"
-                href="https://twitter.com/CreativeTim?ref=creativetim"
+                href="/events"
                 target="_blank"
                 title="Follow us on Twitter"
               >
@@ -151,17 +130,15 @@ function IndexNavbar() {
                 <i className="fa fa-instagram" />
                 <p className="d-lg-none">Instagram</p>
               </NavLink>
-            </NavItem>            
-            
+            </NavItem>
             <NavItem>
               <Button
-                onClick={logOut}
                 className="btn-round"
                 color="danger"
-                href="/index"
+                href="/login-page"
                 target="_blank"
               >
-                <i className="nc-icon nc-button-power"></i> Log out
+                <i className="nc-icon nc-button-power"></i>   Log In
               </Button>
             </NavItem>
           </Nav>
@@ -171,4 +148,4 @@ function IndexNavbar() {
   );
 }
 
-export default IndexNavbar;
+export default LogOutNavbarRegisterPage;

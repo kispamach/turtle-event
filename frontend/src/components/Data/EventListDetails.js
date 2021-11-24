@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import { useHistory } from "react-router-dom";
 
+import AuthService from "services/AuthService";
+
 // reactstrap components
 import {Card, CardImg, CardBody, CardTitle, CardText, Button, Col} from "reactstrap";
 import EventPage from "views/examples/EventPage";
@@ -46,7 +48,10 @@ class EventListDetails extends Component {
         // let path = "/event-page"
         // let history = useHistory()
         // history.push(path)
-        window.location.href="/event-page"
+        {AuthService.getCurrentUser()
+            ? window.location.href="/event-page"
+            : window.location.href="/login-page"
+        }
         // <EventPage id={this.props.event.id} />
     }
 
